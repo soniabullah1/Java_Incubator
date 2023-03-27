@@ -259,12 +259,3 @@
     right: 0;
   }
   
-  .toolbar-option{
-    font-size: large;
-    padding-left: 150px;
-  }
-
-  .toolbar-option:hover{
-    color: #5C4E4E;
-    text-decoration: none;
-  }
