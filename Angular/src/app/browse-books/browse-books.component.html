@@ -17,7 +17,7 @@
             <p>Price: {{ item.price }}</p>
           </div>
   
-          <button mat-icon-button class="cart-button" routerLink="/viewCart">
+          <button mat-icon-button class="cart-button" (click)="addItemToCart(item.bookID)">
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
   

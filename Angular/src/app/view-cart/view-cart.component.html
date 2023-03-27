@@ -1,20 +1,29 @@
-
 <div class="content" role="main">
-    
-  
     <h1 style="padding-top: 150px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">Available Books</h1>
-
-    <div class="card-container">
+  
+    <div class="card-container" *ngFor="let item of carts">
       <a class="card" style="height: 180px; width: 600px;">
-
+  
+        <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
         <img src="/assets/Logo.png" alt="Logo" style="width: 150px;">
- 
-
-        <button mat-icon-button class="cart-button" routerLink="/viewCart">
-          <mat-icon>add_shopping_cart</mat-icon>
-        </button>
-
+          <div *ngFor="let cartItem of item.cartItems">
+            <h3><strong>{{ cartItem.bookID }}</strong></h3>
+            <p>Author: {{ cartItem.bookID }}</p>
+            <p>Date of Publication: {{ cartItem.bookID }}</p>
+            <p>Version: {{ cartItem.bookID }}</p>
+            <p>Number of Items In Stock: {{ cartItem.bookID }}</p>
+            <p>Price: {{ cartItem.bookID }}</p>
+          </div>
+        </div>
+  
+        <div *ngIf="!item.cartItems || item.cartItems.length === 0">
+          <p>There are no items in your cart.</p>
+        </div>
+  
       </a>
     </div>
-
-</div>
+  
+  </div>
+  
+  <router-outlet></router-outlet>
+  
