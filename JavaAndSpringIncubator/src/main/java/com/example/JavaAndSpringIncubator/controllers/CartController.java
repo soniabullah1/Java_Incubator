@@ -2,9 +2,7 @@ package com.example.JavaAndSpringIncubator.controllers;
 
 import com.example.JavaAndSpringIncubator.dto.AddToCartDTO;
 import com.example.JavaAndSpringIncubator.dto.CartDTO;
-import com.example.JavaAndSpringIncubator.entities.Cart;
-import com.example.JavaAndSpringIncubator.repositories.CartItemRepository;
-import com.example.JavaAndSpringIncubator.repositories.CartRepository;
+import com.example.JavaAndSpringIncubator.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,40 +15,29 @@ import java.util.List;
 @RequestMapping("/carts")
 public class CartController {
 
-    @Autowired
-    private final CartRepository cartRepository;
+    private final CartService cartService;
 
     @Autowired
-    private final CartItemRepository cartItemRepository;
-
-    public CartController(CartRepository cartRepository, CartItemRepository cartItemRepository) {
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<List<CartDTO>> getCustomerCart() {
-        List<Cart> customerCartEntity = cartRepository.findAll();
-        List<CartDTO> customerCartDTO = new ArrayList<>();
+        List<CartDTO> customerCart = cartService.getCustomerCart();
 
-        for (int i = 0; i < customerCartEntity.size(); i++) {
-            customerCartDTO.add(CartDTO.fromEntity(customerCartEntity.get(i)));
-        }
-        return  ResponseEntity.ok(customerCartDTO);
+        return  ResponseEntity.ok(customerCart);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PatchMapping("/addItem")
     public ResponseEntity<AddToCartDTO> addCartItem (@RequestBody AddToCartDTO addToCartDTO)
     {
-//        Cart cart = cartRepository.findByCustomerID(addToCartDTO.getCustomerID());
 
-        Cart cart = cartRepository.findByCustomerID(1);
+        AddToCartDTO itemToAdd = cartService.addCartItem(addToCartDTO);
 
-        cartItemRepository.save(addToCartDTO.toEntity(cart.getCartID()));
-
-        return new ResponseEntity<>(addToCartDTO, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(itemToAdd, HttpStatus.ACCEPTED);
 
     }
 }
