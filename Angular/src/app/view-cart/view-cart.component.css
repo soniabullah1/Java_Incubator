@@ -103,5 +103,10 @@
     position: absolute;
     right: 0;
   }
+
+  .quantity-button {
+    font-size: 50px;
+  }
+  
   
   

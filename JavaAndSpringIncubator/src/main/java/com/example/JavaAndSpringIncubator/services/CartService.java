@@ -3,17 +3,13 @@ package com.example.JavaAndSpringIncubator.services;
 import com.example.JavaAndSpringIncubator.dto.AddToCartDTO;
 import com.example.JavaAndSpringIncubator.dto.CartDTO;
 import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
+import com.example.JavaAndSpringIncubator.dto.EditCartItemDTO;
 import com.example.JavaAndSpringIncubator.entities.Cart;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.example.JavaAndSpringIncubator.repositories.CartItemRepository;
 import com.example.JavaAndSpringIncubator.repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +55,22 @@ public class CartService {
         if(cartItem.isPresent())
         {
             cartItemRepository.delete(cartItem.get());
+            return CartItemDTO.fromEntity(cartItem.get());
+        }
+
+        return null;
+    }
+
+    public CartItemDTO editCartItem (EditCartItemDTO editItem)
+    {
+        Cart cart = cartRepository.findByCustomerID(editItem.getCustomerID());
+
+        Optional<CartItem> cartItem = cartItemRepository.findById(editItem.getCartItemID());
+        if(cartItem.isPresent())
+        {
+            cartItem.get().setQuantity(editItem.getQuantity());
+
+            cartItemRepository.save(cartItem.get());
             return CartItemDTO.fromEntity(cartItem.get());
         }
 

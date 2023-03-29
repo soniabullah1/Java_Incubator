@@ -13,6 +13,8 @@ public class CartItemDTO {
     private Integer cartItemID;
     private Integer customerCartID;
 
+    private Integer quantity;
+
     private Integer bookID;
 
     private String title;
@@ -23,7 +25,7 @@ public class CartItemDTO {
 
     private Integer version;
 
-    private Integer numberOfBooksInstock;
+    private Integer numberOfBooksInStock;
     private BigDecimal price;
 
     public CartItemDTO() {
@@ -51,6 +53,14 @@ public class CartItemDTO {
 
     public void setBookID(Integer bookID) {
         this.bookID = bookID;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getTitle() {
@@ -85,12 +95,12 @@ public class CartItemDTO {
         this.version = version;
     }
 
-    public Integer getNumberOfBooksInstock() {
-        return numberOfBooksInstock;
+    public Integer getNumberOfBooksInStock() {
+        return numberOfBooksInStock;
     }
 
-    public void setNumberOfBooksInstock(Integer numberOfBooksInstock) {
-        this.numberOfBooksInstock = numberOfBooksInstock;
+    public void setNumberOfBooksInStock(Integer numberOfBooksInStock) {
+        this.numberOfBooksInStock = numberOfBooksInStock;
     }
 
     public BigDecimal getPrice() {
@@ -105,12 +115,13 @@ public class CartItemDTO {
         CartItemDTO cartItemDTO = new CartItemDTO();
         cartItemDTO.cartItemID = cartItemEntity.getCartItemID();
         cartItemDTO.customerCartID = cartItemEntity.getCartID();
+        cartItemDTO.quantity = cartItemEntity.getQuantity();
         cartItemDTO.bookID = cartItemEntity.getBookID().getBookID();
         cartItemDTO.title = cartItemEntity.getBookID().getTitle();
         cartItemDTO.author = cartItemEntity.getBookID().getAuthor();
         cartItemDTO.dateOfPublication = cartItemEntity.getBookID().getDateOfPublication();
         cartItemDTO.version = cartItemEntity.getBookID().getVersion();
-        cartItemDTO.numberOfBooksInstock = cartItemEntity.getBookID().getNumberOfBooksInStock();
+        cartItemDTO.numberOfBooksInStock = cartItemEntity.getBookID().getNumberOfBooksInStock();
         cartItemDTO.price = cartItemEntity.getBookID().getPrice();
 
 
@@ -122,13 +133,14 @@ public class CartItemDTO {
 
         cartItem.setCartItemID(getCartItemID());
         cartItem.setCartItemID(getCustomerCartID());
+        cartItem.setQuantity(getQuantity());
         Books temp = new Books();
         cartItem.setBookID(temp);
         cartItem.getBookID().setTitle(title);
         cartItem.getBookID().setAuthor(author);
         cartItem.getBookID().setDateOfPublication(dateOfPublication);
         cartItem.getBookID().setVersion(version);
-        cartItem.getBookID().setNumberOfBooksInStock(numberOfBooksInstock);
+        cartItem.getBookID().setNumberOfBooksInStock(numberOfBooksInStock);
         cartItem.getBookID().setPrice(new BigDecimal(99999));
 
         cartItem.getBookID().setBookID(bookID);

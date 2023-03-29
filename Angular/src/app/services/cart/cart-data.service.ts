@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Cart } from 'src/models/cart';
 import { CartItems } from 'src/models/cartItems';
+import { EditCartItem } from 'src/models/editCartItem';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class CartDataService {
 
   deleteItem(cartItemID: number): Observable<CartItems[]> {
     return this.http.patch<CartItems[]>(`${this.cartUrl}carts/deleteItem/${cartItemID}`, cartItemID);
+  }
+
+  editItem(body: any): Observable<EditCartItem[]> {
+    console.log("body: ", body);
+    return this.http.patch<EditCartItem[]>(`${this.cartUrl}carts/editItem`, body);
   }
 
 }

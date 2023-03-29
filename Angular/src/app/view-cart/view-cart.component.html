@@ -1,7 +1,7 @@
 <div class="content" role="main">
     <h1 style="padding-top: 150px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">My Cart</h1>
   
-    <div class="card-container" *ngFor="let item of carts">
+    <!-- <div class="card-container" *ngFor="let item of carts">
       <a class="card" style="width: 600px;">
   
         <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
@@ -14,7 +14,24 @@
             <p>Author: {{ cartItem.author }}</p>
             <p>Date of Publication: {{ cartItem.dateOfPublication }}</p>
             <p>Version: {{ cartItem.version }}</p>
-            <p>Number of Items In Stock: {{ cartItem.numberOfBooksInStock }}</p>
+
+            <p>
+                
+                Quantity: 
+
+                <button mat-icon-button  (click)="decreaseQuantity(cartItem.cartItemID, cartItem.quantity)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+
+                {{ cartItem.quantity }}
+
+                <button mat-icon-button (click)="increaseQuantity(cartItem.cartItemID, cartItem.quantity, cartItem.numberOfBooksInStock)">
+                    <mat-icon>add</mat-icon> 
+                </button>
+                
+            </p>
+            <p style="color: red; font-size:x-small;">Number of items availble: {{ cartItem.numberOfBooksInStock }}</p>
+
             <p>Price: {{ cartItem.price }}</p>
 
           </div>
@@ -28,6 +45,80 @@
     </div>
   
   </div>
+
+
+
+  <div class="card-container" *ngFor="let item of carts">
+    <a class="card" style="width: 300px;">
+
+      <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
+        <div *ngFor="let cartItem of item.cartItems">
+          <button mat-icon-button class="delete-button" (click)="removeItem(cartItem.cartItemID)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          <h3><strong>{{ cartItem.title }}</strong></h3>
+          <p>Author: {{ cartItem.author }}</p>
+          
+        </div>
+      </div>
+
+    </a>
+  </div> -->
+
+
+
+  <div class="card-container" *ngFor="let item of carts">
+    <div class="card" style="width: 600px;">
+        <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
+            <div *ngFor="let cartItem of item.cartItems">
+              <button mat-icon-button class="delete-button" (click)="removeItem(cartItem.cartItemID)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              <img src="/assets/Logo.png" alt="Logo" style="width: 150px; align-items: center;">
+              <h3><strong>{{ cartItem.title }}</strong></h3>
+              <p>Author: {{ cartItem.author }}</p>
+              <p>Date of Publication: {{ cartItem.dateOfPublication }}</p>
+              <p>Version: {{ cartItem.version }}</p>
+  
+              <p>
+                  
+                  Quantity: 
+  
+                  <button mat-icon-button  (click)="decreaseQuantity(cartItem.cartItemID, cartItem.quantity)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+  
+                  {{ cartItem.quantity }}
+  
+                  <button mat-icon-button (click)="increaseQuantity(cartItem.cartItemID, cartItem.quantity, cartItem.numberOfBooksInStock)">
+                      <mat-icon>add</mat-icon> 
+                  </button>
+                  
+              </p>
+              <p style="color: red; font-size:x-small;">Number of items availble: {{ cartItem.numberOfBooksInStock }}</p>
+  
+              <p>Price: {{ cartItem.price }}</p>
+  
+            </div>
+          </div>
+    
+          <div *ngIf="!item.cartItems || item.cartItems.length === 0">
+            <p>There are no items in your cart.</p>
+          </div>
+    </div>
+    <div class="card" style="width: 200px; height: 275px;">
+        <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
+              
+              <h3><strong>Cart Total</strong></h3>
+              
+              <button>
+                Checkout
+              </button>
+              
+          </div>
+    </div>
+  </div>
+  
   
   <router-outlet></router-outlet>
   
