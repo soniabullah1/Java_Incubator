@@ -44,6 +44,9 @@ public class SecurityConfig {
     @Value("${jwt.private.key}")
     private RSAPrivateKey privateKey;
 
+    @Autowired
+    JwtRoleConverter jwtRoleConverter;
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)
             throws Exception {
@@ -51,7 +54,7 @@ public class SecurityConfig {
         authBuilder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
-        //  .roles("ADMIN");
+//                .roles("Admin");
         return authBuilder.build();
     }
 
@@ -72,7 +75,12 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwkSource);
     }
 
-
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter(Converter jwtRoleConverter){
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtRoleConverter);
+        return jwtAuthenticationConverter;
+    }
 
     @Bean
     @Order(1)
@@ -100,8 +108,8 @@ public class SecurityConfig {
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/**").authenticated()
-                        .antMatchers("/**").hasRole("ADMIN")
+                        .antMatchers("/**").permitAll()
+                        .antMatchers("/**").hasRole("Admin")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> {
@@ -119,8 +127,8 @@ public class SecurityConfig {
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
                 )
                 .oauth2ResourceServer()
-                .jwt();
-//                .jwtAuthenticationConverter(jwtAuthenticationConverter(new JwtRoleConverter()));
+                .jwt()
+                .jwtAuthenticationConverter(jwtAuthenticationConverter(new JwtRoleConverter()));
         return httpSecurity.build();
     }
 }

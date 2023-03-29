@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AddToCart } from 'src/models/addToCart';
 import { Books } from 'src/models/books';
 import { Cart } from 'src/models/cart';
 import { CartItems } from 'src/models/cartItems';
@@ -13,10 +14,11 @@ import { CartDataService } from '../services/cart/cart-data.service';
 export class BrowseBooksComponent implements OnInit {
 
   titles: Books[] = [];
-  carts: CartItems[] = [];
+  carts: AddToCart[] = [];
+  body: any = {}
   //dataSource: MatTableDataSource<Books>;
 
-  constructor(private booksDataService: BooksDataService, private cartDataService: CartDataService){
+  constructor(private booksDataService: BooksDataService){
     //this.dataSource = new MatTableDataSource<Books>();
     this.titles = [];
     this.carts = [];
@@ -26,13 +28,19 @@ export class BrowseBooksComponent implements OnInit {
 
     this.booksDataService.getBooks().subscribe((data: Books[]) => {
       this.titles = data;
+      console.log("hi: ", this.carts)
     });
 }
 
 addItemToCart(id: any): void {
-  this.cartDataService.addItemToCart(id).subscribe((data: CartItems[]) => {
+  this.body = {
+    bookID: id,
+    customerID: 1,
+    quantity: 1
+  };
+  this.booksDataService.addItemToCart(this.body).subscribe((data: AddToCart[]) => {
     this.carts = data;
-    console.log("item added: ", id)
+    console.log("item added: ", this.carts)
   })
 }
 

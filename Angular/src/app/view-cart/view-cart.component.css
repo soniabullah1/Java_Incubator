@@ -98,5 +98,10 @@
   .card {
     position: relative;
   }
+
+  .delete-button {
+    position: absolute;
+    right: 0;
+  }
   
   

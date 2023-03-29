@@ -36,7 +36,7 @@ public class TokenController {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiry))
                 .subject(authentication.getName())
-//                .claim("roles",scope)
+                .claim("roles",scope)
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }

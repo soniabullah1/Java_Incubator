@@ -5,5 +5,13 @@ export interface CartItems {
     cartID?: number;
     quantity?: number;
 
-    bookID?: Books
+    bookID: number;
+    title?: string;
+    author?: string;
+    dateOfPublication?: Date;
+    version?: number;
+    numberOfBooksInStock?: number;
+    price?: number;
+    
+    books?: Books;
   }

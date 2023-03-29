@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Books } from 'src/models/books';
 import { CartItems } from 'src/models/cartItems';
+import { AddToCart } from 'src/models/addToCart';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class BooksDataService {
     return this.http.get<Books[]>(`${this.booksUrl}books`);
   }
 
-  addItemToCart(body: any): Observable<CartItems[]> {
-    return this.http.patch<CartItems[]>(`${this.booksUrl}carts/addItem`, body);
+  addItemToCart(body: any): Observable<AddToCart[]> {
+    return this.http.patch<AddToCart[]>(`${this.booksUrl}carts/addItem`, body);
   }
 
   // getStockItemById(id: string): Observable<Stock> {
