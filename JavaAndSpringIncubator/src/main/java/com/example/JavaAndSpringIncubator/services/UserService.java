@@ -4,6 +4,8 @@ import com.example.JavaAndSpringIncubator.dto.UserDTO;
 import com.example.JavaAndSpringIncubator.entities.User;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class UserService {
     }
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    Logger logger = LogManager.getLogger(UserService.class.getName());
+
 
     public UserStatus registerUser(UserDTO newUser) {
         List<User> users = userRepository.findAll();
@@ -52,37 +56,22 @@ public class UserService {
         return UserStatus.SUCCESSFUL;
     }
 
-//    public UserStatus loginUser(UserDTO userDTO) {
-//        List<User> users = userRepository.findAll();
-//
-//        for (User other : users) {
-//            if (other.equals(userDTO)) {
-//                userDTO.setLoggedIn(true);
-//                userRepository.save(userDTO.toEntity());
-//                return UserStatus.SUCCESSFUL;
-//            }
-//        }
-//        return UserStatus.UNSUCCESSFUL;
-//    }
+    public UserStatus loginUser(UserDTO user) {
+//        UserDTO storedUser = userRepository.findByUsername(user.getUsername());
+        UserDTO storedUser = (UserDTO) UserDTO.toDTOs((List<User>) userRepository.findByUsername(user.getUsername()));
 
-//    public UserStatus loginUser (UserDTO userDTO) {
-//        UserDTO user = userLoginRepo.findByUsername(userDTO.getUsername());
-//
-//        if (user == null) {
-//            return UserStatus.USER_NOT_FOUND;
-//        }
-//
-//        // Concatenate password and stored salt
-//        String saltedPassword = userDTO.getPassword() + new String(user.getSalt());
-//
-//        // Check if the password matches the stored hashed password
-//        if (passwordEncoder.matches(saltedPassword, user.getPassword())) {
-//            user.setLoggedIn(true);
-//            return UserStatus.SUCCESSFUL;
-//        } else {
-//            return UserStatus.INVALID_PASSWORD;
-//        }
-//    }
+        if (storedUser != null) {
+            String saltedPassword = user.getPassword() + storedUser.getSalt();
+            String hashedPassword = passwordEncoder.encode(saltedPassword);
 
+            if (hashedPassword.equals(storedUser.getPassword())) {
+                storedUser.setLoggedIn(true);
+                userRepository.save(storedUser.toEntity());
+                return UserStatus.SUCCESSFUL;
+            }
+        }
 
+        return UserStatus.UNSUCCESSFUL;
+    }
 }
+

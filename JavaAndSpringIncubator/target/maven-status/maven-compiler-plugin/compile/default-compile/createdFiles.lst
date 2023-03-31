@@ -10,7 +10,6 @@ com\example\JavaAndSpringIncubator\entities\User.class
 com\example\JavaAndSpringIncubator\repositories\CartRepository.class
 com\example\JavaAndSpringIncubator\dto\BooksDTO.class
 com\example\JavaAndSpringIncubator\repositories\UserRepository.class
-com\example\JavaAndSpringIncubator\repositories\UserLoginRepo.class
 com\example\JavaAndSpringIncubator\dto\EditCartItemDTO.class
 com\example\JavaAndSpringIncubator\entities\CartItem.class
 com\example\JavaAndSpringIncubator\entities\Books.class

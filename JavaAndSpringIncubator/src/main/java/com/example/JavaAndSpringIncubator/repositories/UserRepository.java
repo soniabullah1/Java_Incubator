@@ -12,7 +12,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 //    List<User> findByUsername(String Username);
 
-//    UserDTO findByUsername(String Username);
-
+    User findByUsername(String Username);
     public User save(User user);
 }

@@ -6,6 +6,8 @@ import com.example.JavaAndSpringIncubator.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDTO {
@@ -26,10 +28,7 @@ public class UserDTO {
 
     private Boolean loggedIn;
 
-    public UserDTO(String username, String password, Boolean loggedIn) {
-        this.username = username;
-        this.password = password;
-        this.loggedIn = false;
+    public UserDTO() {
     }
 
     public Integer getUserID() {
@@ -112,6 +111,18 @@ public class UserDTO {
         return Objects.hash(userID, username, password, loggedIn);
     }
 
+    public static UserDTO fromEntity(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.userID = user.getUserID();
+        userDTO.username = user.getUsername();
+        userDTO.password = user.getPassword();
+        userDTO.email = user.getEmail();
+        userDTO.dateOfBirth = user.getDateOfBirth();
+        userDTO.role = user.getRole();
+        userDTO.loggedIn = false;
+        return userDTO;
+    }
+
     @JsonIgnore
     public User toEntity() {
         User user = new User();
@@ -132,5 +143,16 @@ public class UserDTO {
                 ", password='" + password + '\'' +
                 ", loggedIn=" + loggedIn +
                 '}';
+    }
+
+    public static List<UserDTO> toDTOs(List<User> userEntities)
+    {
+        List<UserDTO> userDTO = new ArrayList<>();
+        for(User user : userEntities)
+        {
+            userDTO.add(UserDTO.fromEntity(user));
+        }
+
+        return  userDTO;
     }
 }
