@@ -4,9 +4,11 @@ import com.example.JavaAndSpringIncubator.dto.UserDTO;
 import com.example.JavaAndSpringIncubator.entities.User;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
+import com.example.JavaAndSpringIncubator.security.CustomerUserDetailsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,10 +21,14 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+//    private final ObjectMapper objectMapper;
+    private final CustomerUserDetailsService customerUserDetailsService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, CustomerUserDetailsService customerUserDetailsService) {
         this.userRepository = userRepository;
+//        this.objectMapper = objectMapper;
+        this.customerUserDetailsService = customerUserDetailsService;
     }
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -37,12 +43,15 @@ public class UserService {
             }
         }
 
-        // Generate a random salt
-        byte[] salt = new byte[16];
-        new SecureRandom().nextBytes(salt);
+//        // Generate a random salt
+//        byte[] salt = new byte[16];
+//        new SecureRandom().nextBytes(salt);
+
+        // Generate a salt based on the user's username
+        String salt = newUser.getUsername();
 
         // Concatenate password and salt
-        String saltedPassword = newUser.getPassword() + new String(salt);
+        String saltedPassword = newUser.getPassword() + salt;
 
         // Hash the password with the salt
         String hashedPassword = passwordEncoder.encode(saltedPassword);
@@ -58,15 +67,16 @@ public class UserService {
 
     public UserStatus loginUser(UserDTO user) {
 //        UserDTO storedUser = userRepository.findByUsername(user.getUsername());
-        UserDTO storedUser = (UserDTO) UserDTO.toDTOs((List<User>) userRepository.findByUsername(user.getUsername()));
+//        UserDTO storedUser = (UserDTO) userRepository.findByUsername(user.getUsername());
+        UserDetails storedUser = customerUserDetailsService.loadUserByUsername(user.getUsername());
+//        UserDTO storedUser = objectMapper.toDTO((User) userRepository.findByUsername(user.getUsername()));
 
         if (storedUser != null) {
-            String saltedPassword = user.getPassword() + storedUser.getSalt();
-            String hashedPassword = passwordEncoder.encode(saltedPassword);
+            String saltedPassword = user.getPassword() + user.getUsername();
 
-            if (hashedPassword.equals(storedUser.getPassword())) {
-                storedUser.setLoggedIn(true);
-                userRepository.save(storedUser.toEntity());
+            if (passwordEncoder.matches(saltedPassword, storedUser.getPassword())) {
+//                storedUser.setLoggedIn(true);
+//                userRepository.save(storedUser);
                 return UserStatus.SUCCESSFUL;
             }
         }

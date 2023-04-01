@@ -5,6 +5,7 @@ import com.example.JavaAndSpringIncubator.entities.Books;
 import com.example.JavaAndSpringIncubator.repositories.BooksRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class BookService {
     private final BooksRepository booksRepository;
 
     Logger logger = LogManager.getLogger(BooksRepository.class.getName());
-//    @Autowired
+    @Autowired
     public BookService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
     }

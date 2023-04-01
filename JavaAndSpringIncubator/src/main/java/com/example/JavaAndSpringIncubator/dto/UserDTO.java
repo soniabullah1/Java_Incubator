@@ -1,13 +1,9 @@
 package com.example.JavaAndSpringIncubator.dto;
 
-import com.example.JavaAndSpringIncubator.entities.Books;
-import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.example.JavaAndSpringIncubator.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class UserDTO {
@@ -18,7 +14,7 @@ public class UserDTO {
 
     private String password;
 
-    private byte[] salt;
+    private String salt;
 
     private String email;
 
@@ -55,11 +51,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public byte[] getSalt() {
+    public String getSalt() {
         return salt;
     }
 
-    public void setSalt(byte[] salt) {
+    public void setSalt(String salt) {
         this.salt = salt;
     }
 
@@ -145,14 +141,14 @@ public class UserDTO {
                 '}';
     }
 
-    public static List<UserDTO> toDTOs(List<User> userEntities)
-    {
-        List<UserDTO> userDTO = new ArrayList<>();
-        for(User user : userEntities)
-        {
-            userDTO.add(UserDTO.fromEntity(user));
-        }
-
-        return  userDTO;
-    }
+//    public static List<UserDTO> toDTOs(List<User> userEntities)
+//    {
+//        List<UserDTO> userDTO = new ArrayList<>();
+//        for(User user : userEntities)
+//        {
+//            userDTO.add(UserDTO.fromEntity(user));
+//        }
+//
+//        return  userDTO;
+//    }
 }
