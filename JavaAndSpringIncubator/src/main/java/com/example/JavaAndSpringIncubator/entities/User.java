@@ -31,4 +31,7 @@ public class User {
 
     @Column(name = "Role")
     private String role;
+
+//    @Column(name = "IsLoggedIn")
+//    private Boolean isLoggedIn;
 }

@@ -24,7 +24,7 @@ public class UserDTO {
 
     private String role;
 
-    private Boolean loggedIn;
+    private Boolean isLoggedIn;
 
     public UserDTO() {
     }
@@ -85,12 +85,12 @@ public class UserDTO {
         this.role = role;
     }
 
-    public Boolean getLoggedIn() {
-        return loggedIn;
+    public Boolean getIsLoggedIn() {
+        return isLoggedIn;
     }
 
-    public void setLoggedIn(Boolean loggedIn) {
-        this.loggedIn = loggedIn;
+    public void setIsLoggedIn(Boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
     }
 
     public boolean equals(Object object) {
@@ -106,10 +106,10 @@ public class UserDTO {
     }
 
     public int hashCode() {
-        return Objects.hash(userID, username, password, loggedIn);
+        return Objects.hash(userID, username, password, isLoggedIn);
     }
 
-    public static UserDTO fromEntity(User user) {
+    public static UserDTO fromEntity(User user, Boolean status) {
         UserDTO userDTO = new UserDTO();
         userDTO.userID = user.getUserID();
         userDTO.username = user.getUsername();
@@ -117,7 +117,7 @@ public class UserDTO {
         userDTO.email = user.getEmail();
         userDTO.dateOfBirth = user.getDateOfBirth();
         userDTO.role = user.getRole();
-        userDTO.loggedIn = false;
+        userDTO.isLoggedIn = status;
         return userDTO;
     }
 
@@ -139,7 +139,7 @@ public class UserDTO {
                 "userID=" + userID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", loggedIn=" + loggedIn +
+                ", loggedIn=" + isLoggedIn +
                 '}';
     }
 

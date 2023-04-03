@@ -22,10 +22,10 @@ export class LoginService {
   login(body: any): Observable<User[]> {
     return this.http.post<User[]>(`${this.loginUrl}users/login`, body).pipe(
       map(users => {
-        if (users.length === 0) {
-          throw new Error("No user found.");
-        }
-        console.log("users: ", users)
+        // if (users.length === 0) {
+        //   throw new Error("No user found.");
+        // }
+        // console.log("users: ", users)
         return users;
       })
     );

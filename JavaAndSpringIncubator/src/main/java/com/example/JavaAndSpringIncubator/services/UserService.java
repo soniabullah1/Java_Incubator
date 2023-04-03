@@ -76,11 +76,12 @@ public class UserService {
             String saltedPassword = user.getPassword() + user.getUsername();
 
             if (passwordEncoder.matches(saltedPassword, storedUser.getPassword())) {
-//                storedUser.setLoggedIn(true);
-//                userRepository.save(storedUser);
-//                return UserStatus.SUCCESSFUL;
-                return UserDTO.fromEntity(user.toEntity());
+                user.setIsLoggedIn(true);
+                //userRepository.save(user.toEntity()); // Use save method to update the user record
+                logger.info("userStatus: " + user.getIsLoggedIn());
+                return UserDTO.fromEntity(user.toEntity(), user.getIsLoggedIn());
             }
+
         }
 
 //        return UserStatus.UNSUCCESSFUL;

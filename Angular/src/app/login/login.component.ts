@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   username?: string;
   password?: string;
   message : string = ''
+  status: Boolean = false;
   //dataSource: MatTableDataSource<Books>;
 
   constructor(private loginService: LoginService, private router: Router){
@@ -23,6 +24,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+  if (isLoggedIn === 'true') {
+    this.status = true;
+  }
 
 }
   login(username?: String, password?: String): void {
@@ -34,16 +39,37 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.body).subscribe((data: User[]) => {
       this.user = data;
+      this.status = true;
       if (this.user) {
-        console.log("test: ", (this.user).length);
+        this.status = true;
+        localStorage.setItem('isLoggedIn', 'true');
+
         this.router.navigate(['/browse']);
       }
 
-      else{
-        this.message = 'The username or password provided is incorrect. Please try again.'
+      else {
+        this.message = 'The username or password provided is incorrect. Please try again.';
+        // document.getElementById('error-message').textContent = this.message;
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const errorMessage = document.getElementById('error-message');
+          if (errorMessage) {
+            errorMessage.textContent = 'The username or password provided is incorrect. Please try again.';
+          }
+        });
+        
       }
+      
     })
     // location.reload();
+    console.log("status: " + this.status);
+  }
+
+
+  logout() {
+    localStorage.removeItem('isLoggedIn');
+    this.status = false;
+    this.router.navigate(['/login']);
   }
 
 }
