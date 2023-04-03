@@ -1,5 +1,6 @@
 package com.example.JavaAndSpringIncubator.services;
 
+import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
 import com.example.JavaAndSpringIncubator.dto.UserDTO;
 import com.example.JavaAndSpringIncubator.entities.User;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
@@ -65,7 +66,7 @@ public class UserService {
         return UserStatus.SUCCESSFUL;
     }
 
-    public UserStatus loginUser(UserDTO user) {
+    public UserDTO loginUser(UserDTO user) {
 //        UserDTO storedUser = userRepository.findByUsername(user.getUsername());
 //        UserDTO storedUser = (UserDTO) userRepository.findByUsername(user.getUsername());
         UserDetails storedUser = customerUserDetailsService.loadUserByUsername(user.getUsername());
@@ -77,11 +78,13 @@ public class UserService {
             if (passwordEncoder.matches(saltedPassword, storedUser.getPassword())) {
 //                storedUser.setLoggedIn(true);
 //                userRepository.save(storedUser);
-                return UserStatus.SUCCESSFUL;
+//                return UserStatus.SUCCESSFUL;
+                return UserDTO.fromEntity(user.toEntity());
             }
         }
 
-        return UserStatus.UNSUCCESSFUL;
+//        return UserStatus.UNSUCCESSFUL;
+        return null;
     }
 }
 

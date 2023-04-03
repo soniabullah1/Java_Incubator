@@ -48,10 +48,18 @@ public class UserController {
         return new ResponseEntity<>(userStatus, HttpStatus.ACCEPTED);
     }
 
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @PostMapping("/login")
+//    public ResponseEntity<UserStatus> loginUser(@Valid @RequestBody UserDTO user) {
+//        UserStatus userDTO = userService.loginUser(user);
+//        return new ResponseEntity<>(userDTO, HttpStatus.ACCEPTED);
+//    }
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/login")
-    public ResponseEntity<UserStatus> loginUser(@Valid @RequestBody UserDTO user) {
-        UserStatus userDTO = userService.loginUser(user);
+    public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO user) {
+        UserDTO userDTO = userService.loginUser(user);
         return new ResponseEntity<>(userDTO, HttpStatus.ACCEPTED);
     }
 

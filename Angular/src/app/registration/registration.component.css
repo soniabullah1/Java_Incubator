@@ -1,0 +1,47 @@
+.form-container{
+    padding-top: 300px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-container {
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: column;
+    /* background-color:#5C4E4E; */
+  }
+
+  .create-container mat-form-field {
+    width: 300px;
+  }
+
+.information-heading {
+    padding-top: 18px;
+    padding-left: 65px;
+    display: flex;
+    font-weight: bold;
+    color: #D1D0D0;
+  }
+
+.confirmation {
+    display: flex;
+    align-items: center;
+}
+
+.confirmation-text {
+    padding-left: 50px;
+    color: #D1D0D0;
+    display: flex;
+    font-size: 12px;
+}
+
+.login-button {
+    padding-left: 35px;
+    padding-bottom: 9px;
+    display: flex;
+    justify-content: flex-end;
+  }

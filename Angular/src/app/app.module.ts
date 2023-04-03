@@ -13,6 +13,13 @@ import { BrowseBooksComponent } from './browse-books/browse-books.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { RegistrationComponent } from './registration/registration.component';
+import {MatInputModule} from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatMenuModule} from '@angular/material/menu';
+import {ReactiveFormsModule} from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 @NgModule({
@@ -20,7 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppComponent,
     ViewCartComponent,
     BrowseBooksComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +39,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatMenuModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
