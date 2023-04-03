@@ -10,13 +10,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ViewCartComponent } from './view-cart/view-cart.component';
 import { BrowseBooksComponent } from './browse-books/browse-books.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewCartComponent,
-    BrowseBooksComponent
+    BrowseBooksComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { BrowseBooksComponent } from './browse-books/browse-books.component';
     MatCardModule,
     HttpClientModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,21 @@
+
+<div class="login-wrapper" fxLayout="center" fxLayoutAlign="center center" style="margin-top: 300px; margin-left: 560px;">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Log in</mat-card-title>
+      </mat-card-header>
+      <form class="example-form">
+        <mat-card-content>
+          <mat-form-field>
+            <input matInput placeholder="Username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Password">
+          </mat-form-field>
+        </mat-card-content>
+        <button mat-stroked-button color="accent" class="btn-block" (click)="decreaseQuantity(Username, Password)">Log in</button>
+      </form>
+    </mat-card>
+  </div>
+
+<router-outlet></router-outlet>
