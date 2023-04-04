@@ -19,6 +19,14 @@ export class CartDataService {
     return this.http.get<Cart[]>(`${this.cartUrl}carts`);
   }
 
+  getCartById(id: number): Observable<Cart[]> {
+    return this.http.get<Cart[]>(`${this.cartUrl}carts/${id}`);
+  }
+
+  getCartItemById(id: number): Observable<CartItems[]> {
+    return this.http.get<CartItems[]>(`${this.cartUrl}carts/item/${id}`);
+  }
+
   deleteItem(cartItemID: number): Observable<CartItems[]> {
     return this.http.patch<CartItems[]>(`${this.cartUrl}carts/deleteItem/${cartItemID}`, cartItemID);
   }

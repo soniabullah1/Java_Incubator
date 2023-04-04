@@ -21,7 +21,7 @@
     
               <mat-form-field appearance="outline">
                   <mat-label>Enter password</mat-label>
-                  <input required matInput #input placeholder="Password" [(ngModel)]="password" type="text">
+                  <input required matInput #input placeholder="Password" [(ngModel)]="password" type="password">
                   <mat-error *ngIf="!password">This field is required</mat-error>
               </mat-form-field>
 
@@ -44,7 +44,7 @@
               <!-- Confirmation Text -->
     
               <div class="confirmation">
-                <p class="confirmation-text">Already have an account? </p>
+                <p class="confirmation-text">Already have an account? &#160;</p>
                 <p routerLink="/login" > Log in here. </p>
                 <!-- Button -->
                 <div class="login-button">

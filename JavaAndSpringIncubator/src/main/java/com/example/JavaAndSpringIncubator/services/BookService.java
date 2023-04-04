@@ -6,9 +6,14 @@ import com.example.JavaAndSpringIncubator.repositories.BooksRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -25,5 +30,12 @@ public class BookService {
     {
         List<BooksDTO> books = BooksDTO.toDtos(booksRepository.findAll());
         return books;
+    }
+
+    public BooksDTO getBookByID(Integer bookID)
+    {
+        Optional<Books> books = booksRepository.findById(bookID);
+
+            return BooksDTO.fromEntity(books.get());
     }
 }

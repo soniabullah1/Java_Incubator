@@ -259,12 +259,22 @@
     right: 0;
   }
   
-  .toolbar-option{
+  .toolbar-option1{
+    font-size: large;
+    padding-left: 350px;
+  }
+
+  .toolbar-option1:hover{
+    color: #5C4E4E;
+    text-decoration: none;
+  }
+
+  .toolbar-option2{
     font-size: large;
     padding-left: 150px;
   }
 
-  .toolbar-option:hover{
+  .toolbar-option2:hover{
     color: #5C4E4E;
     text-decoration: none;
   }

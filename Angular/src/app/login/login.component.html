@@ -16,7 +16,7 @@
     
               <mat-form-field appearance="outline">
                   <mat-label>Enter password</mat-label>
-                  <input required matInput #input placeholder="Password" [(ngModel)]="password" type="text">
+                  <input required matInput #input placeholder="Password" [(ngModel)]="password" type="password">
                   <mat-error *ngIf="!password">This field is required</mat-error>
               </mat-form-field>
 
@@ -25,15 +25,17 @@
               <!-- Confirmation Text -->
     
               <div class="confirmation">
-                <p id="error-message"></p>
-                <p class="confirmation-text">Don't have an account? </p>
+                <p class="confirmation-text">Don't have an account? &#160;</p>
                 <p routerLink="/register" > Register here. </p>
                 <!-- Button -->
+            
                 <div class="login-button">
                     <button mat-flat-button color="primary" [disabled]="!input.value" (click)="login(username, password)">Log In</button>
                 </div>
+
               </div>
     
+              <p id="errorMessage" #errorMessage style="color: #D1D0D0;"></p>
     
     
         </mat-card-content>
@@ -45,10 +47,13 @@
 <div *ngIf="status === true">
     
   
-        <h1 style="padding-top: 350px; font-family:'Times New Roman', Times, serif; font-size:xx-large; display: flex; justify-content: center;">You are already logged in.</h1>
-        <div>
-            <button mat-flat-button color="primary" (click)="logout()" style="display: flex; justify-content: center;">Log Out</button>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <h1 style="padding-top: 350px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">You are already logged in.</h1>
+        <div style="display: flex; justify-content: center;">
+          <button mat-flat-button color="primary" (click)="logout()">Log Out</button>
         </div>
+      </div>
+      
   
     
 </div>

@@ -1,9 +1,6 @@
 package com.example.JavaAndSpringIncubator.controllers;
 
-import com.example.JavaAndSpringIncubator.dto.AddToCartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
-import com.example.JavaAndSpringIncubator.dto.EditCartItemDTO;
+import com.example.JavaAndSpringIncubator.dto.*;
 import com.example.JavaAndSpringIncubator.entities.Cart;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.example.JavaAndSpringIncubator.services.CartService;
@@ -62,5 +59,22 @@ public class CartController {
     {
         CartItemDTO updatedItem = cartService.editCartItem(editItem);
         return new ResponseEntity<>(updatedItem, HttpStatus.ACCEPTED);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{cartID}")
+    public ResponseEntity<CartDTO> getCartByID(@PathVariable Integer cartID)
+    {
+        CartDTO item = cartService.getCartByID(cartID);
+        return ResponseEntity.ok(item);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/item/{cartItemID}")
+    public ResponseEntity<CartItemDTO> getCartItemByID(@PathVariable Integer cartItemID)
+    {
+        CartItemDTO item = cartService.getCartItemByID(cartItemID);
+        return ResponseEntity.ok(item);
+
     }
 }

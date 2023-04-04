@@ -37,18 +37,18 @@
     cursor: pointer;
   }
 
-  .card-container .card:not(.highlight-card):hover {
+  /* .card-container .card:not(.highlight-card):hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
+  } */
 
 
-  a,
+  /* a,
   a:visited,
   a:hover {
     color: #333;
     text-decoration: none;
-  }
+  } */
 
   svg#clouds {
     position: fixed;
@@ -108,5 +108,20 @@
     font-size: 50px;
   }
   
+  .book-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .book-info h3 {
+    margin-bottom: 10px;
+  }
+
+  .total {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 20px;
+  }
   
   

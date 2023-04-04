@@ -24,8 +24,8 @@ export class BooksDataService {
     return this.http.patch<AddToCart[]>(`${this.booksUrl}carts/addItem`, body);
   }
 
-  // getStockItemById(id: string): Observable<Stock> {
-  //   return this.http.get<Stock>(`${this.stockUrl}Stock/${id}`);
-  // }
+  getBookById(id: number): Observable<Books[]> {
+    return this.http.get<Books[]>(`${this.booksUrl}books/${id}`);
+  }
 }
 

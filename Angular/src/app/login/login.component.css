@@ -54,3 +54,10 @@
     display: flex;
     justify-content: center;
 }
+
+#error-message {
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

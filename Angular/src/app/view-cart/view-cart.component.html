@@ -68,18 +68,24 @@
 
 
   <div class="card-container" *ngFor="let item of carts">
-    <div class="card" style="width: 600px;">
+    <div class="card" style="width: 700px;">
         <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
             <div *ngFor="let cartItem of item.cartItems">
+                <div class="card" style="width: 600px; height: 320px;">
               <button mat-icon-button class="delete-button" (click)="removeItem(cartItem.cartItemID)">
                   <mat-icon>delete</mat-icon>
                 </button>
-              <img src="/assets/Logo.png" alt="Logo" style="width: 150px; align-items: center;">
-              <h3><strong>{{ cartItem.title }}</strong></h3>
-              <p>Author: {{ cartItem.author }}</p>
-              <p>Date of Publication: {{ cartItem.dateOfPublication }}</p>
-              <p>Version: {{ cartItem.version }}</p>
-  
+              <img src="/assets/Logo.png" alt="Logo" style="width: 150px; height:250px; align-items: center; margin-top: 5px;">
+              <div class="book-info">
+                <h3 style="margin-left: 20px;"><strong>{{ cartItem.title }}</strong></h3>
+                <div style="margin-left: 20px;">
+                    <p>Book ID: {{ cartItem.bookID }}</p> 
+                  <p>Author: {{ cartItem.author }}</p>
+                  <p>Date of Publication: {{ cartItem.dateOfPublication }}</p>
+                  <p>Version: {{ cartItem.version }}</p>
+                </div>
+
+              <div class="card" style="margin-left: 20px;">
               <p>
                   
                   Quantity: 
@@ -95,9 +101,16 @@
                   </button>
                   
               </p>
-              <p style="color: red; font-size:x-small;">Number of items availble: {{ cartItem.numberOfBooksInStock }}</p>
-  
-              <p>Price: {{ cartItem.price }}</p>
+              <p style="color: red; font-size:x-small; padding-top: 20px;">Number of items availble: {{ cartItem.numberOfBooksInStock }} at R{{ cartItem.price }} each</p>
+
+              <!-- <p style="color: red; font-size:x-small;">Price Per Unit: R{{ cartItem.price }}</p> -->
+
+            </div>
+
+              <p class="total"><strong>Total Price: R{{calculateTotalPrice(cartItem.quantity, cartItem.price)}}</strong></p>
+
+              </div>
+            </div>
   
             </div>
           </div>
@@ -106,15 +119,17 @@
             <p>There are no items in your cart.</p>
           </div>
     </div>
-    <div class="card" style="width: 200px; height: 275px;">
+    <div class="card" style="width: 700px; height: 100px;">
         <div style="margin-left: 20px;" *ngIf="item.cartItems && item.cartItems.length > 0">
               
-              <h3><strong>Cart Total</strong></h3>
+              <h3><strong>Cart Total:</strong></h3>
+
+              <h5><strong>Cart Total: {{totalPrice/item.cartItems.length}}</strong></h5>
               
-              <button>
-                Checkout
-              </button>
-              
+              <div class="total" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                  <button mat-flat-button color="primary">Checkout</button>
+              </div>
+
           </div>
     </div>
   </div>

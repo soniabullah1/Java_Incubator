@@ -1,9 +1,7 @@
 package com.example.JavaAndSpringIncubator.services;
 
-import com.example.JavaAndSpringIncubator.dto.AddToCartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
-import com.example.JavaAndSpringIncubator.dto.EditCartItemDTO;
+import com.example.JavaAndSpringIncubator.dto.*;
+import com.example.JavaAndSpringIncubator.entities.Books;
 import com.example.JavaAndSpringIncubator.entities.Cart;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.example.JavaAndSpringIncubator.repositories.CartItemRepository;
@@ -71,6 +69,24 @@ public class CartService {
             cartItem.get().setQuantity(editItem.getQuantity());
 
             cartItemRepository.save(cartItem.get());
+            return CartItemDTO.fromEntity(cartItem.get());
+        }
+
+        return null;
+    }
+
+    public CartDTO getCartByID(Integer cartID)
+    {
+        Optional<Cart> item = cartRepository.findById(cartID);
+
+        return CartDTO.fromEntity(item.get());
+    }
+
+    public CartItemDTO getCartItemByID(Integer cartItemID)
+    {
+        Optional<CartItem> cartItem = cartItemRepository.findById(cartItemID);
+        if(cartItem.isPresent())
+        {
             return CartItemDTO.fromEntity(cartItem.get());
         }
 

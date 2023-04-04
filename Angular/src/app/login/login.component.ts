@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/models/user';
 import { LoginService } from '../services/login/login.service';
 import { Router } from '@angular/router';
+import { BooksDataService } from '../services/books/books-data.service';
+import { CartItems } from 'src/models/cartItems';
+import { Books } from 'src/models/books';
+import { CartDataService } from '../services/cart/cart-data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +20,19 @@ export class LoginComponent implements OnInit {
   password?: string;
   message : string = ''
   status: Boolean = false;
+
   //dataSource: MatTableDataSource<Books>;
+
+  @ViewChild('errorMessage') errorMessage: ElementRef;
+
+  showError() {
+    this.errorMessage.nativeElement.textContent = 'The username or password provided is incorrect. Please try again.';
+  }
 
   constructor(private loginService: LoginService, private router: Router){
     //this.dataSource = new MatTableDataSource<Books>();
     this.user = [];
+    this.errorMessage = new ElementRef(document.getElementById('errorMessage'));
   }
 
   ngOnInit(): void {
@@ -39,7 +51,6 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(this.body).subscribe((data: User[]) => {
       this.user = data;
-      this.status = true;
       if (this.user) {
         this.status = true;
         localStorage.setItem('isLoggedIn', 'true');
@@ -48,15 +59,8 @@ export class LoginComponent implements OnInit {
       }
 
       else {
-        this.message = 'The username or password provided is incorrect. Please try again.';
-        // document.getElementById('error-message').textContent = this.message;
 
-        document.addEventListener('DOMContentLoaded', () => {
-          const errorMessage = document.getElementById('error-message');
-          if (errorMessage) {
-            errorMessage.textContent = 'The username or password provided is incorrect. Please try again.';
-          }
-        });
+        this.showError();
         
       }
       
