@@ -1,22 +1,31 @@
 package com.example.JavaAndSpringIncubator.services;
 
+import com.example.JavaAndSpringIncubator.dto.BooksDTO;
 import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
 import com.example.JavaAndSpringIncubator.dto.UserDTO;
+import com.example.JavaAndSpringIncubator.entities.Books;
 import com.example.JavaAndSpringIncubator.entities.User;
+import com.example.JavaAndSpringIncubator.enums.BookStatus;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
 import com.example.JavaAndSpringIncubator.security.CustomerUserDetailsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -35,6 +44,19 @@ public class UserService {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     Logger logger = LogManager.getLogger(UserService.class.getName());
 
+
+    public List<UserDTO> getUsers()
+    {
+        List<UserDTO> users = UserDTO.toDTOs(userRepository.findAll());
+        return users;
+    }
+
+    public UserDTO getUserByID(Integer userID)
+    {
+        Optional<User> users = userRepository.findById(userID);
+
+        return UserDTO.fromEntity(users.get(), false);
+    }
 
     public UserStatus registerUser(UserDTO newUser) {
         List<User> users = userRepository.findAll();
@@ -86,6 +108,35 @@ public class UserService {
 
 //        return UserStatus.UNSUCCESSFUL;
         return null;
+    }
+
+    public UserStatus deleteUser(Integer userID)
+    {
+        Optional<User> users = userRepository.findById(userID);
+        if(users.isPresent())
+        {
+            userRepository.delete(users.get());
+            return UserStatus.SUCCESSFUL;
+        }
+        else
+        {
+            return UserStatus.UNSUCCESSFUL;
+        }
+    }
+
+    public UserDTO updateUser(UserDTO userDTO, Integer userID)
+    {
+        Optional<User> user = userRepository.findById(userID);
+        User userEntity = user.get();
+
+        userEntity.setUsername(userDTO.getUsername());
+        userEntity.setPassword(userDTO.getPassword());
+        userEntity.setEmail(userDTO.getEmail());
+        userEntity.setDateOfBirth(userDTO.getDateOfBirth());
+        userEntity.setRole(userDTO.getRole());
+
+        userRepository.save(userEntity);
+        return userDTO;
     }
 }
 

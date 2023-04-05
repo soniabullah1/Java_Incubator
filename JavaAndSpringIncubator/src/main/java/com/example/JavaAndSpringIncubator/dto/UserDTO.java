@@ -143,14 +143,14 @@ public class UserDTO {
                 '}';
     }
 
-//    public static List<UserDTO> toDTOs(List<User> userEntities)
-//    {
-//        List<UserDTO> userDTO = new ArrayList<>();
-//        for(User user : userEntities)
-//        {
-//            userDTO.add(UserDTO.fromEntity(user));
-//        }
-//
-//        return  userDTO;
-//    }
+    public static List<UserDTO> toDTOs(List<User> userEntities)
+    {
+        List<UserDTO> userDTO = new ArrayList<>();
+        for(User user : userEntities)
+        {
+            userDTO.add(UserDTO.fromEntity(user, false));
+        }
+
+        return  userDTO;
+    }
 }
