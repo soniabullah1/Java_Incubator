@@ -1,0 +1,44 @@
+.demo-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+
+    cursor: pointer;
+    background-color: #D1D0D0;
+    color: black;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: white;
+  }
+  
+  th, td {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  
+  .custom-btn {
+    border-color: #3f51b5;
+    color: #3f51b5;
+  }
+  
+  .custom-btn:hover {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+  
+  .form-control:focus {
+    border-color: #3f51b5 !important;
+  }
+
+  .table-design {
+    width: 100%;
+    height: 500px;
+    font-size: 14px;
+  }
+  

@@ -19,7 +19,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatMenuModule} from '@angular/material/menu';
 import {ReactiveFormsModule} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { ManageStockComponent } from './manage-stock/manage-stock.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -28,7 +35,9 @@ import { MatSelectModule } from '@angular/material/select';
     ViewCartComponent,
     BrowseBooksComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ManageStockComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatDatepickerModule,
     MatMenuModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

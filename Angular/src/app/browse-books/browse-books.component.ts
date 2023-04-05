@@ -28,7 +28,6 @@ export class BrowseBooksComponent implements OnInit {
 
     this.booksDataService.getBooks().subscribe((data: Books[]) => {
       this.titles = data;
-      console.log("hi: ", this.carts)
     });
 }
 

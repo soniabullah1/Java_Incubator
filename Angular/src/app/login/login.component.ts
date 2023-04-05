@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   password?: string;
   message : string = ''
   status: Boolean = false;
+  role?: String;
 
   //dataSource: MatTableDataSource<Books>;
 
@@ -52,6 +53,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.body).subscribe((data: User[]) => {
       this.user = data;
       if (this.user) {
+        console.log("testing:", this.user);
         this.status = true;
         localStorage.setItem('isLoggedIn', 'true');
 
@@ -74,6 +76,14 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('isLoggedIn');
     this.status = false;
     this.router.navigate(['/login']);
+  }
+
+  manageStock() {
+    this.router.navigate(['/manageStock']);
+  }
+
+  manageUsers() {
+    this.router.navigate(['/manageUsers']);
   }
 
 }

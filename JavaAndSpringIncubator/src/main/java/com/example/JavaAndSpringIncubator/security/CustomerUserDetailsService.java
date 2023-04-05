@@ -25,7 +25,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
                 .findFirst()
                 .map(customerEntity -> User.withUsername(customerEntity.getUsername())
                         .password(customerEntity.getPassword())
-                        .roles("Admin")
+                        .roles(customerEntity.getRole())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return userDetails;
