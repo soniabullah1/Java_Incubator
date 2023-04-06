@@ -1,5 +1,6 @@
 package com.example.JavaAndSpringIncubator.controllers;
 
+import com.example.JavaAndSpringIncubator.RoleResponse;
 import com.example.JavaAndSpringIncubator.dto.UserDTO;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
@@ -46,6 +47,15 @@ public class UserController {
     {
         UserDTO user = iUserService.getUserByID(userID);
         return ResponseEntity.ok(user);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/role/{username}")
+    public ResponseEntity<RoleResponse> getRoleByUsername(@PathVariable String username)
+    {
+        String role = iUserService.getRoleByUsername(username);
+        RoleResponse response = new RoleResponse(role);
+        return ResponseEntity.ok(response);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

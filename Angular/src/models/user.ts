@@ -5,6 +5,6 @@ export interface User {
     password?: String;
     email?: String;
     dateOfBirth: Date;
-    role: String;
+    role: string;
 
   }

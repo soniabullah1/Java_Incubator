@@ -18,9 +18,10 @@ export class LoginComponent implements OnInit {
   body: any = {}
   username?: string;
   password?: string;
+  role?: string;
   message : string = ''
   status: Boolean = false;
-  role?: String;
+  userRole?: string;
 
   //dataSource: MatTableDataSource<Books>;
 
@@ -57,6 +58,21 @@ export class LoginComponent implements OnInit {
         this.status = true;
         localStorage.setItem('isLoggedIn', 'true');
 
+        this.loginService.getRoleByUsername(this.body.username).subscribe((currentRole: User) => {
+          if (currentRole && currentRole.role) {
+            console.log("The current role is: ", currentRole.role);
+            this.userRole = currentRole.role;
+          } else {
+            console.log("No role found for username:", this.body.username);
+          }
+        });
+        
+        
+
+        // this.role = this.getRoleByUsername(this.body.username);
+
+        console.log("current role is: ", this.userRole);
+
         this.router.navigate(['/browse']);
       }
 
@@ -68,7 +84,7 @@ export class LoginComponent implements OnInit {
       
     })
     // location.reload();
-    console.log("status: " + this.status);
+    console.log("status: " + this.userRole);
   }
 
 

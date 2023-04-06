@@ -49,6 +49,17 @@ public class UserService implements IUserService{
         return UserDTO.fromEntity(users.get(), false);
     }
 
+    public String getRoleByUsername(String username)
+    {
+        List<User> users = userRepository.findByUsername(username);
+
+        for (User user : users) {
+            return user.getRole();
+        }
+
+        return null;
+    }
+
     public UserStatus registerUser(UserDTO newUser) {
         List<User> users = userRepository.findAll();
         for (User user : users) {

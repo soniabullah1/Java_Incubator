@@ -30,6 +30,10 @@ export class LoginService {
       })
     );
   }
+
+  getRoleByUsername(username?: String): Observable<User> {
+    return this.http.get<User>(`${this.loginUrl}users/role/${username}`);
+  }
   
 
 }

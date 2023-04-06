@@ -21,4 +21,6 @@ public interface IUserService {
     UserStatus deleteUser(Integer userID);
 
     UserDTO updateUser(UserDTO userDTO, Integer userID);
+
+    String getRoleByUsername(String username);
 }
