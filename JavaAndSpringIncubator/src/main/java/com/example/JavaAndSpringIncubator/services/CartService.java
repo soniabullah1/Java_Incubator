@@ -8,13 +8,15 @@ import com.example.JavaAndSpringIncubator.repositories.CartItemRepository;
 import com.example.JavaAndSpringIncubator.repositories.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CartService {
+@Transactional
+public class CartService implements ICartService{
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;

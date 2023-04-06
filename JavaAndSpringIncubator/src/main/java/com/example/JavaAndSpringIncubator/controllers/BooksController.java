@@ -7,6 +7,7 @@ import com.example.JavaAndSpringIncubator.enums.BookStatus;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
 import com.example.JavaAndSpringIncubator.repositories.BooksRepository;
 import com.example.JavaAndSpringIncubator.services.BookService;
+import com.example.JavaAndSpringIncubator.services.IBookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BooksController {
 
-    private final BookService bookService;
+    private final IBookService iBookService;
 
     Logger logger = LogManager.getLogger(BooksRepository.class.getName());
     @Autowired
-    public BooksController(BookService bookService) {
-        this.bookService = bookService;
+    public BooksController(IBookService iBookService) {
+        this.iBookService = iBookService;
     }
 
 
@@ -34,7 +35,7 @@ public class BooksController {
     @GetMapping
     public ResponseEntity<List<BooksDTO>> getBooks()
     {
-        List<BooksDTO> books = bookService.getBooks();
+        List<BooksDTO> books = iBookService.getBooks();
         return ResponseEntity.ok(books);
     }
 
@@ -42,21 +43,21 @@ public class BooksController {
     @GetMapping("/{bookID}")
     public ResponseEntity<BooksDTO> getBookByID(@PathVariable Integer bookID)
     {
-        BooksDTO book = bookService.getBookByID(bookID);
+        BooksDTO book = iBookService.getBookByID(bookID);
         return ResponseEntity.ok(book);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/create")
     public ResponseEntity<BookStatus> createBook (@RequestBody BooksDTO book) {
-        BookStatus bookStatus = bookService.createBook(book);
+        BookStatus bookStatus = iBookService.createBook(book);
         return new ResponseEntity<>(bookStatus, HttpStatus.ACCEPTED);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/delete/{bookID}")
     public ResponseEntity<BookStatus> deleteBook (@PathVariable Integer bookID) {
-        BookStatus bookStatus = bookService.deleteBook(bookID);
+        BookStatus bookStatus = iBookService.deleteBook(bookID);
         return new ResponseEntity<>(bookStatus, HttpStatus.ACCEPTED);
     }
 
@@ -64,7 +65,7 @@ public class BooksController {
     @PatchMapping("/update/{bookID}")
     public ResponseEntity<BooksDTO> updateBook(@RequestBody BooksDTO bookDTO,@PathVariable Integer bookID)
     {
-        BooksDTO book = bookService.updateBook(bookDTO, bookID);
+        BooksDTO book = iBookService.updateBook(bookDTO, bookID);
         return new ResponseEntity<>(book, HttpStatus.ACCEPTED);
     }
 

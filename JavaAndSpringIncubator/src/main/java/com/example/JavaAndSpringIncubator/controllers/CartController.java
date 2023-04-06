@@ -1,33 +1,30 @@
 package com.example.JavaAndSpringIncubator.controllers;
 
 import com.example.JavaAndSpringIncubator.dto.*;
-import com.example.JavaAndSpringIncubator.entities.Cart;
-import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.example.JavaAndSpringIncubator.services.CartService;
+import com.example.JavaAndSpringIncubator.services.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/carts")
 public class CartController {
 
-    private final CartService cartService;
+    private final ICartService iCartService;
 
     @Autowired
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
+    public CartController(ICartService iCartService) {
+        this.iCartService = iCartService;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
     public ResponseEntity<List<CartDTO>> getCustomerCart() {
-        List<CartDTO> customerCart = cartService.getCustomerCart();
+        List<CartDTO> customerCart = iCartService.getCustomerCart();
 
         return  ResponseEntity.ok(customerCart);
     }
@@ -37,7 +34,7 @@ public class CartController {
     public ResponseEntity<AddToCartDTO> addCartItem (@RequestBody AddToCartDTO addToCartDTO)
     {
 
-        AddToCartDTO itemToAdd = cartService.addCartItem(addToCartDTO);
+        AddToCartDTO itemToAdd = iCartService.addCartItem(addToCartDTO);
 
         return new ResponseEntity<>(itemToAdd, HttpStatus.ACCEPTED);
 
@@ -48,7 +45,7 @@ public class CartController {
     public ResponseEntity<CartItemDTO> deleteCartItem (@PathVariable Integer cartItemID)
     {
 
-        CartItemDTO cartItem = cartService.deleteCartItem(cartItemID);
+        CartItemDTO cartItem = iCartService.deleteCartItem(cartItemID);
         return new ResponseEntity<>(cartItem, HttpStatus.ACCEPTED);
 
     }
@@ -57,7 +54,7 @@ public class CartController {
     @PatchMapping("/editItem")
     public ResponseEntity<CartItemDTO> editCartItem (@RequestBody EditCartItemDTO editItem)
     {
-        CartItemDTO updatedItem = cartService.editCartItem(editItem);
+        CartItemDTO updatedItem = iCartService.editCartItem(editItem);
         return new ResponseEntity<>(updatedItem, HttpStatus.ACCEPTED);
     }
 
@@ -65,7 +62,7 @@ public class CartController {
     @GetMapping("/{cartID}")
     public ResponseEntity<CartDTO> getCartByID(@PathVariable Integer cartID)
     {
-        CartDTO item = cartService.getCartByID(cartID);
+        CartDTO item = iCartService.getCartByID(cartID);
         return ResponseEntity.ok(item);
     }
 
@@ -73,7 +70,7 @@ public class CartController {
     @GetMapping("/item/{cartItemID}")
     public ResponseEntity<CartItemDTO> getCartItemByID(@PathVariable Integer cartItemID)
     {
-        CartItemDTO item = cartService.getCartItemByID(cartItemID);
+        CartItemDTO item = iCartService.getCartItemByID(cartItemID);
         return ResponseEntity.ok(item);
 
     }
