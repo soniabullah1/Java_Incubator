@@ -16,4 +16,16 @@ export class UserDataService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.userUrl}users`);
   }
+
+  createUser(body: any): Observable<User[]> {
+    return this.http.post<User[]>(`${this.userUrl}users/create`, body);
+  }
+
+  updateUser(id: number, body: any): Observable<User[]> {
+    return this.http.patch<User[]>(`${this.userUrl}users/update/${id}`, body);
+  }
+
+  deleteUserById(id: number): Observable<User[]> {
+    return this.http.delete<User[]>(`${this.userUrl}users/delete/${id}`);
+  }
 }

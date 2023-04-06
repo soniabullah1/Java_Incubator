@@ -27,6 +27,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { EditBookComponent } from './edit-book/edit-book.component';
+import { OrderBookComponent } from './order-book/order-book.component';
+import { DialogOverviewComponent } from './dialog-overview/dialog-overview.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { CreateBookComponent } from './create-book/create-book.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 @NgModule({
@@ -37,7 +43,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LoginComponent,
     RegistrationComponent,
     ManageStockComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    EditBookComponent,
+    OrderBookComponent, 
+    DialogOverviewComponent, 
+    EditUserComponent, CreateBookComponent, CreateUserComponent
   ],
   imports: [
     BrowserModule,

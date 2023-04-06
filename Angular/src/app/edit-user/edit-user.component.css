@@ -1,0 +1,47 @@
+.form-container{
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-container {
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .create-container mat-form-field {
+    width: 300px;
+  }
+
+.information-heading {
+    padding-top: 18px;
+    padding-left: 65px;
+    display: flex;
+    font-weight: bold;
+    color: white;
+  }
+
+.confirmation {
+    display: flex;
+    align-items: center;
+}
+
+.confirmation-text {
+    padding-left: 50px;
+    color: grey;
+    display: flex;
+    font-size: 12px;
+}
+
+.create-button {
+    padding-left: 35px;
+    padding-bottom: 9px;
+    display: flex;
+    justify-content: flex-end;
+  }
+

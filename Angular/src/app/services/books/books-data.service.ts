@@ -27,5 +27,17 @@ export class BooksDataService {
   getBookById(id: number): Observable<Books[]> {
     return this.http.get<Books[]>(`${this.booksUrl}books/${id}`);
   }
+
+  createBook(body: any): Observable<Books[]> {
+    return this.http.post<Books[]>(`${this.booksUrl}books/create`, body);
+  }
+
+  updateBook(id: number, body: any): Observable<Books[]> {
+    return this.http.patch<Books[]>(`${this.booksUrl}books/update/${id}`, body);
+  }
+
+  deleteBookById(id: number): Observable<Books[]> {
+    return this.http.delete<Books[]>(`${this.booksUrl}books/delete/${id}`);
+  }
 }
 

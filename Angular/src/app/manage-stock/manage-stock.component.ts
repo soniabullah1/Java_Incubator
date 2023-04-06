@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Books } from 'src/models/books';
 import { BooksDataService } from '../services/books/books-data.service';
 import { MatDialog } from '@angular/material/dialog';
+import { EditBookComponent } from '../edit-book/edit-book.component';
+import { CreateBookComponent } from '../create-book/create-book.component';
 
 @Component({
   selector: 'app-manage-stock',
@@ -12,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ManageStockComponent implements OnInit {
   isLoading = true;
 
-  displayedColumns: string[] = ['bookID', 'title', 'author', 'version', 'dateOfPublication', 'numberOfBooksInStock', 'price', 'edit', 'delete'];
+  displayedColumns: string[] = ['bookID', 'title', 'author', 'version', 'dateOfPublication', 'numberOfBooksInStock', 'price', 'edit', 'delete', 'order'];
   public books?: Books;
 
   title: string = '';
@@ -43,5 +45,32 @@ export class ManageStockComponent implements OnInit {
     });
   }
   
+  openDialog(row: any): void {
+    const dialogRef = this.dialog.open(EditBookComponent, {
+      data: { row }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  deleteBook(id: any): void {
+    this.booksDataService.deleteBookById(id).subscribe((data: Books[]) => {
+      this.titles = data;
+    })
+    location.reload();
+  }
+
+  openDialogCreate(row: any): void {
+    const dialogRef = this.dialog.open(CreateBookComponent, {
+      data: { row }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 
 }

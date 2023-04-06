@@ -3,6 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/models/user';
 import { UserDataService } from '../services/user/user-data.service';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { RegistrationComponent } from '../registration/registration.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-manage-users',
@@ -38,6 +41,33 @@ export class ManageUsersComponent implements OnInit {
     this.userDataService.getUsers().subscribe((data: User[]) => {
       this.user = data;
       this.dataSource = new MatTableDataSource<User>(this.user); // Create MatTableDataSource instance
+    });
+  }
+
+  openDialog(row: any): void {
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      data: { row }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  deleteUser(id: any): void {
+    this.userDataService.deleteUserById(id).subscribe((data: User[]) => {
+      this.user = data;
+    })
+    location.reload();
+  }
+
+  openDialogCreate(row: any): void {
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      data: { row }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

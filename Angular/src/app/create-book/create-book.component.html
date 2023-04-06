@@ -1,0 +1,61 @@
+<div class="form-container">
+
+    <!-- Card -->
+      <mat-card>
+        <!-- Heading -->
+        <h2 class="information-heading">Create New Stock: </h2>
+        <mat-card-content>
+            <div class="create-container">
+    
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter title</mat-label>
+                    <input required matInput #input placeholder="Title" [(ngModel)]="title" type="text">
+                    <mat-error *ngIf="!title">This field is required</mat-error>
+                </mat-form-field>    
+    
+              <mat-form-field appearance="outline">
+                  <mat-label>Enter author</mat-label>
+                  <input required matInput #input placeholder="Author" [(ngModel)]="author" type="text">
+                  <mat-error *ngIf="!author">This field is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Enter version</mat-label>
+                <input required matInput #input placeholder="Version" [(ngModel)]="version" type="number">
+                <mat-error *ngIf="!version">This field is required</mat-error>
+            </mat-form-field> 
+
+            <mat-form-field appearance="outline">
+                <mat-label>Enter date of publication</mat-label>
+                <input required matInput #input placeholder="Date Of Publication" [(ngModel)]="dateOfPublication" type="date">
+                <mat-error *ngIf="!dateOfPublication">This field is required</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Enter number of books in stock</mat-label>
+                <input required matInput #input placeholder="Number of Books In Stock" [(ngModel)]="numberOfBooksInStock" type="number">
+                <mat-error *ngIf="!numberOfBooksInStock">This field is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Enter price</mat-label>
+              <input required matInput #input placeholder="Price" [(ngModel)]="price" type="number">
+              <mat-error *ngIf="!price">This field is required</mat-error>
+          </mat-form-field> 
+
+              </div>
+    
+              <!-- Confirmation Text -->
+    
+              <div class="confirmation">
+                <p class="confirmation-text">Is the information above correct?</p>
+                <!-- Button -->
+                <div class="create-button">
+                    <button mat-flat-button color="primary" [disabled]="!input.value" (click)="onCreate()">Create</button>
+                </div>
+              </div>
+    
+        </mat-card-content>
+      </mat-card>
+    </div>

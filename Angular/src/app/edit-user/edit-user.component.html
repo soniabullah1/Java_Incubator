@@ -1,0 +1,54 @@
+<div class="form-container">
+
+    <!-- Card -->
+      <mat-card>
+        <!-- Heading -->
+        <h2 class="information-heading">Edit User: </h2>
+        <mat-card-content>
+            <div class="create-container">
+    
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter username</mat-label>
+                    <input required matInput #input placeholder="Ex. User24_xyz" [(ngModel)]="row.username" type="text">
+                    <mat-error *ngIf="!row.username">This field is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter email address</mat-label>
+                    <input required matInput #input placeholder="Ex. user24@mymail.com" [(ngModel)]="row.email" type="text">
+                    <mat-error *ngIf="!row.email">This field is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter date of birth</mat-label>
+                    <input required matInput #input placeholder="Ex. 3" [(ngModel)]="row.dateOfBirth" type="date">
+                    <mat-error *ngIf="!row.dateOfBirth">This field is required</mat-error>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                  <mat-label>Select role</mat-label>
+                  <mat-select #select [(ngModel)]="row.role">
+                    <mat-option value="Admin">Admin</mat-option>
+                    <mat-option value="Customer">Customer</mat-option>
+                  </mat-select>
+                </mat-form-field>
+    
+              </div>
+    
+              <!-- Confirmation Text -->
+    
+              <div class="confirmation">
+                <p class="confirmation-text">Is the information above correct?</p>
+                <!-- Button -->
+                <div class="create-button">
+                    <button mat-flat-button color="primary" [disabled]="!input.value" (click)="onUpdate()">Update</button>
+                </div>
+              </div>
+    
+    
+    
+        </mat-card-content>
+      </mat-card>
+    </div>
+    

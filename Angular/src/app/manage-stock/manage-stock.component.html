@@ -3,7 +3,7 @@
 <span class="input-group" style="width: 970px; padding-left: 10px;">
   <input type="text" [(ngModel)]="title" class="form-control" style="height: 50px;" placeholder="Search by title" aria-label="Username" aria-describedby="basic-addon1">
   <button type="button" class="btn btn-outline-primary" style="margin-right: 10px;">Search</button>
-  <button type="button" class="btn btn-outline-primary" >Create</button>
+  <button type="button" class="btn btn-outline-primary" (click)="openDialogCreate(row)">Create</button>
 </span>
 
 
@@ -50,14 +50,21 @@
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef > Edit </th>
     <td mat-cell *matCellDef="let row" ng-reflect-column-name="edit">
-      <button mat-raised-button color="primary">Edit</button>
+      <button mat-raised-button color="primary" (click)="openDialog(row)">Edit</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Delete</th>
     <td mat-cell class="exclude-click" *matCellDef="let row" ng-reflect-column-name="delete">
-      <button mat-raised-button color="primary" >Delete</button>
+      <button mat-raised-button color="primary" (click)="deleteBook(row.bookID)">Delete</button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="order">
+    <th mat-header-cell *matHeaderCellDef>Order</th>
+    <td mat-cell class="exclude-click" *matCellDef="let row" ng-reflect-column-name="order">
+      <button mat-raised-button color="primary" >Order</button>
     </td>
   </ng-container>
 

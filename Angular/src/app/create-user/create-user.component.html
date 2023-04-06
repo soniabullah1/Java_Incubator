@@ -1,0 +1,57 @@
+<div class="form-container">
+
+    <!-- Card -->
+      <mat-card>
+        <!-- Heading -->
+        <h2 class="information-heading">Create New Stock: </h2>
+        <mat-card-content>
+            <div class="create-container">
+    
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter username</mat-label>
+                    <input required matInput #input placeholder="Username" [(ngModel)]="username" type="text">
+                    <mat-error *ngIf="!username">This field is required</mat-error>
+                </mat-form-field>    
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Enter password</mat-label>
+                    <input required matInput #input placeholder="Password" [(ngModel)]="password" type="password">
+                    <mat-error *ngIf="!password">This field is required</mat-error>
+                </mat-form-field>    
+    
+              <mat-form-field appearance="outline">
+                  <mat-label>Enter email</mat-label>
+                  <input required matInput #input placeholder="Email Address" [(ngModel)]="email" type="text">
+                  <mat-error *ngIf="!email">This field is required</mat-error>
+              </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Enter date of birth</mat-label>
+                <input required matInput #input placeholder="Date Of Birth" [(ngModel)]="dateOfBirth" type="date">
+                <mat-error *ngIf="!dateOfBirth">This field is required</mat-error>
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline">
+                <mat-label>Select role</mat-label>
+                <mat-select #select [(ngModel)]="role">
+                  <mat-option value="Admin">Admin</mat-option>
+                  <mat-option value="Customer">Customer</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              </div>
+    
+              <!-- Confirmation Text -->
+    
+              <div class="confirmation">
+                <p class="confirmation-text">Is the information above correct?</p>
+                <!-- Button -->
+                <div class="create-button">
+                    <button mat-flat-button color="primary" [disabled]="!input.value" (click)="onCreate()">Create</button>
+                </div>
+              </div>
+    
+        </mat-card-content>
+      </mat-card>
+    </div>
