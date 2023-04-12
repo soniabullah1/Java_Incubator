@@ -2,10 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/models/user';
 import { LoginService } from '../services/login/login.service';
 import { Router } from '@angular/router';
-import { BooksDataService } from '../services/books/books-data.service';
-import { CartItems } from 'src/models/cartItems';
-import { Books } from 'src/models/books';
-import { CartDataService } from '../services/cart/cart-data.service';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +10,14 @@ import { CartDataService } from '../services/cart/cart-data.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: User[] = [];
+  user: User[] | undefined= [];
   body: any = {}
   username?: string;
   password?: string;
   role?: string;
   message : string = ''
   status: Boolean = false;
-  userRole?: string;
+  userRole?: any;
 
   //dataSource: MatTableDataSource<Books>;
 
@@ -39,57 +35,66 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const currentUsersRole = localStorage.getItem('currentUsersRole');
+  
   if (isLoggedIn === 'true') {
     this.status = true;
   }
 
-}
-  login(username?: String, password?: String): void {
-
-    this.body = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.loginService.login(this.body).subscribe((data: User[]) => {
-      this.user = data;
-      if (this.user) {
-        console.log("testing:", this.user);
-        this.status = true;
-        localStorage.setItem('isLoggedIn', 'true');
-
-        this.loginService.getRoleByUsername(this.body.username).subscribe((currentRole: User) => {
-          if (currentRole && currentRole.role) {
-            console.log("The current role is: ", currentRole.role);
-            this.userRole = currentRole.role;
-          } else {
-            console.log("No role found for username:", this.body.username);
-          }
-        });
-        
-        
-
-        // this.role = this.getRoleByUsername(this.body.username);
-
-        console.log("current role is: ", this.userRole);
-
-        this.router.navigate(['/browse']);
-      }
-
-      else {
-
-        this.showError();
-        
-      }
-      
-    })
-    // location.reload();
-    console.log("status: " + this.userRole);
+  if (currentUsersRole === 'true') {
+    this.userRole = "Admin";
   }
+
+}
+async login(username?: String, password?: String): Promise<void> {
+
+  this.body = {
+    username: this.username,
+    password: this.password
+  };
+
+  try {
+    const data: User[] | undefined = await this.loginService.login(this.body).toPromise();
+    this.user = data;
+    if (this.user) {
+      console.log("testing:", this.user);
+      this.status = true;
+      localStorage.setItem('isLoggedIn', 'true');
+
+      const currentRole: User | undefined = await this.loginService.getRoleByUsername(this.body.username).toPromise();
+      if (currentRole && currentRole.role) {
+        this.userRole = currentRole.role;
+
+        if (this.userRole === 'Admin'){
+          localStorage.setItem('currentUsersRole', 'true');
+        }
+
+       else {
+          localStorage.setItem('currentUsersRole', 'false');
+        }
+
+      } else {
+        console.log("No role found for username:", this.body.username);
+      }
+
+      this.router.navigate(['/browse']);
+    } else {
+      this.showError();
+    }
+
+  } catch (error) {
+    console.log("Error: ", error);
+    this.showError();
+  }
+
+  console.log("status: " + this.userRole);
+}
+
 
 
   logout() {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userRole');
     this.status = false;
     this.router.navigate(['/login']);
   }

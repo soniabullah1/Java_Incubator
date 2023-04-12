@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div *ngIf="status === true">
+<!-- <div *ngIf="status && userRole === 'Customer'">
     
   
     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -56,19 +56,23 @@
       
   
     
-</div>
+</div> -->
 
-<div *ngIf="status === true && userRole === 'Admin'">
-    
+<div *ngIf="status === true">
+
   
     <div style="display: flex; flex-direction: column; align-items: center;">
         <h1 style="padding-top: 350px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">You are already logged in.</h1>
+        
+        <div *ngIf="userRole === 'Admin'">
         <div style="display: flex; justify-content: center; padding-bottom: 10px;">
           <button mat-flat-button color="primary" (click)="manageStock()">Manage Stock</button>
         </div>
         <div style="display: flex; justify-content: center; padding-bottom: 10px;">
             <button mat-flat-button color="primary" (click)="manageUsers()">Manage Users</button>
           </div>
+        </div>
+
           <div style="display: flex; justify-content: center;">
             <button mat-flat-button color="primary" (click)="logout()">Log Out</button>
           </div>
