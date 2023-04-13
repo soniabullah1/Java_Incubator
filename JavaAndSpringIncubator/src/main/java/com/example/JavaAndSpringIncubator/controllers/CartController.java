@@ -1,6 +1,9 @@
 package com.example.JavaAndSpringIncubator.controllers;
 
 import com.example.JavaAndSpringIncubator.dto.*;
+import com.example.JavaAndSpringIncubator.entities.Cart;
+import com.example.JavaAndSpringIncubator.enums.BookStatus;
+import com.example.JavaAndSpringIncubator.enums.CartStatus;
 import com.example.JavaAndSpringIncubator.services.CartService;
 import com.example.JavaAndSpringIncubator.services.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +65,7 @@ public class CartController {
     @GetMapping("/{cartID}")
     public ResponseEntity<CartDTO> getCartByID(@PathVariable Integer cartID)
     {
-        CartDTO item = iCartService.getCartByID(cartID);
+        CartDTO item = iCartService.getCartByUsersID(cartID);
         return ResponseEntity.ok(item);
     }
 
@@ -73,5 +76,12 @@ public class CartController {
         CartItemDTO item = iCartService.getCartItemByID(cartItemID);
         return ResponseEntity.ok(item);
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/create")
+    public ResponseEntity<CartStatus> createCartForUser (Integer customerID, @RequestBody CreateCartDTO cartDTO) {
+        CartStatus cartStatus = iCartService.createCartForUser(customerID, cartDTO);
+        return new ResponseEntity<>(cartStatus, HttpStatus.ACCEPTED);
     }
 }

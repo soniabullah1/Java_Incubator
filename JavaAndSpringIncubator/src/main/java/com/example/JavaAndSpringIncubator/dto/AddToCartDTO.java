@@ -6,7 +6,7 @@ import com.example.JavaAndSpringIncubator.entities.CartItem;
 public class AddToCartDTO {
 
     private Integer bookID;
-    private Integer customerID;
+    private Integer userID;
     private Integer quantity;
 
     public AddToCartDTO() {
@@ -20,12 +20,12 @@ public class AddToCartDTO {
         this.bookID = bookID;
     }
 
-    public Integer getCustomerID() {
-        return customerID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public Integer getQuantity() {

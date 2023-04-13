@@ -17,6 +17,10 @@ export class UserDataService {
     return this.http.get<User[]>(`${this.userUrl}users`);
   }
 
+  getIDByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`${this.userUrl}users/findID/${username}`);
+  }
+
   createUser(body: any): Observable<User[]> {
     return this.http.post<User[]>(`${this.userUrl}users/create`, body);
   }

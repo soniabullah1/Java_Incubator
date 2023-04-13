@@ -32,11 +32,19 @@ export class BrowseBooksComponent implements OnInit {
 }
 
 addItemToCart(id: any): void {
+
+  const userIDFromStorage = localStorage.getItem('userID');
+  const usersID = parseInt(userIDFromStorage ?? '');
+
+
   this.body = {
     bookID: id,
-    customerID: 1,
+    userID: usersID,
     quantity: 1
   };
+
+  console.log("item added: ", this.body);
+
   this.booksDataService.addItemToCart(this.body).subscribe((data: AddToCart[]) => {
     this.carts = data;
     console.log("item added: ", this.carts)

@@ -1,8 +1,10 @@
 package com.example.JavaAndSpringIncubator.services;
 
+import com.example.JavaAndSpringIncubator.controllers.UserController;
 import com.example.JavaAndSpringIncubator.dto.UserDTO;
 import com.example.JavaAndSpringIncubator.entities.User;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
+import com.example.JavaAndSpringIncubator.repositories.CartRepository;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
 import com.example.JavaAndSpringIncubator.security.CustomerUserDetailsService;
 import org.apache.logging.log4j.LogManager;
@@ -22,12 +24,14 @@ import java.util.Optional;
 public class UserService implements IUserService{
 
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 //    private final ObjectMapper objectMapper;
     private final CustomerUserDetailsService customerUserDetailsService;
 
     @Autowired
-    public UserService(UserRepository userRepository, CustomerUserDetailsService customerUserDetailsService) {
+    public UserService(UserRepository userRepository, CartRepository cartRepository, CustomerUserDetailsService customerUserDetailsService) {
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
 //        this.objectMapper = objectMapper;
         this.customerUserDetailsService = customerUserDetailsService;
     }
@@ -47,6 +51,19 @@ public class UserService implements IUserService{
         Optional<User> users = userRepository.findById(userID);
 
         return UserDTO.fromEntity(users.get(), false);
+    }
+
+    public Integer getIDByUsername(String username)
+    {
+        Integer userID = null;
+
+        List<User> users = userRepository.findByUsername(username);
+
+        for (User currentUser : users) {
+            userID = currentUser.getUserID();
+        }
+
+        return userID;
     }
 
     public String getRoleByUsername(String username)

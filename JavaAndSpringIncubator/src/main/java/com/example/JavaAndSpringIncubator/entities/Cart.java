@@ -17,8 +17,8 @@ public class Cart {
     @Column(name = "cartID")
     private Integer cartID;
 
-    @Column(name = "CustomerID")
-    private Integer customerID;
+    @Column(name = "UserID")
+    private Integer userID;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "cartID", referencedColumnName = "CartID")

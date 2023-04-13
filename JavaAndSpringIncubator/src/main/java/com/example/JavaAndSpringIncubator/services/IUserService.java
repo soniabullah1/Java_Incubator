@@ -23,4 +23,5 @@ public interface IUserService {
     UserDTO updateUser(UserDTO userDTO, Integer userID);
 
     String getRoleByUsername(String username);
+    Integer getIDByUsername(String username);
 }

@@ -1,11 +1,13 @@
 package com.example.JavaAndSpringIncubator.services;
 
 import com.example.JavaAndSpringIncubator.dto.*;
-import com.example.JavaAndSpringIncubator.entities.Books;
 import com.example.JavaAndSpringIncubator.entities.Cart;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
+import com.example.JavaAndSpringIncubator.enums.CartStatus;
 import com.example.JavaAndSpringIncubator.repositories.CartItemRepository;
 import com.example.JavaAndSpringIncubator.repositories.CartRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ public class CartService implements ICartService{
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+
+    Logger logger = LogManager.getLogger(CartService.class.getName());
 
     @Autowired
     public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository) {
@@ -39,9 +43,10 @@ public class CartService implements ICartService{
 
     public AddToCartDTO addCartItem (AddToCartDTO addToCartDTO)
     {
-//        Cart cart = cartRepository.findByCustomerID(addToCartDTO.getCustomerID());
+//        logger.info("testinggg: " + addToCartDTO.getUserID());
+        Cart cart = cartRepository.findByUserID(addToCartDTO.getUserID());
 
-        Cart cart = cartRepository.findByCustomerID(1);
+//        Cart cart = cartRepository.findByUserID(1);
 
         cartItemRepository.save(addToCartDTO.toEntity(cart.getCartID()));
 
@@ -63,7 +68,7 @@ public class CartService implements ICartService{
 
     public CartItemDTO editCartItem (EditCartItemDTO editItem)
     {
-        Cart cart = cartRepository.findByCustomerID(editItem.getCustomerID());
+        Cart cart = cartRepository.findByUserID(editItem.getUserID());
 
         Optional<CartItem> cartItem = cartItemRepository.findById(editItem.getCartItemID());
         if(cartItem.isPresent())
@@ -77,11 +82,12 @@ public class CartService implements ICartService{
         return null;
     }
 
-    public CartDTO getCartByID(Integer cartID)
+    public CartDTO getCartByUsersID(Integer cartID)
     {
-        Optional<Cart> item = cartRepository.findById(cartID);
+//        Optional<Cart> item = cartRepository.findById(cartID);
+        Cart cart = cartRepository.findByUserID(cartID);
 
-        return CartDTO.fromEntity(item.get());
+        return CartDTO.fromEntity(cart);
     }
 
     public CartItemDTO getCartItemByID(Integer cartItemID)
@@ -94,4 +100,22 @@ public class CartService implements ICartService{
 
         return null;
     }
+
+    public CartStatus createCartForUser(Integer customerID, CreateCartDTO cartDTO)
+    {
+        List<Cart> cart = cartRepository.findAll();
+        for (Cart customerCart : cart) {
+            if (customerCart.equals(cartDTO)) {
+                return CartStatus.CART_ALREADY_EXISTS;
+            }
+        }
+
+        // Set the customer ID for the cart object before saving it
+        cartDTO.setUserID(customerID);
+
+        cartRepository.save(cartDTO.toEntity());
+
+        return CartStatus.SUCCESSFUL;
+    }
+
 }

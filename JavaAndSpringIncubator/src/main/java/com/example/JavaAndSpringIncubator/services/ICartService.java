@@ -1,11 +1,9 @@
 package com.example.JavaAndSpringIncubator.services;
 
-import com.example.JavaAndSpringIncubator.dto.AddToCartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartDTO;
-import com.example.JavaAndSpringIncubator.dto.CartItemDTO;
-import com.example.JavaAndSpringIncubator.dto.EditCartItemDTO;
+import com.example.JavaAndSpringIncubator.dto.*;
 import com.example.JavaAndSpringIncubator.entities.Cart;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
+import com.example.JavaAndSpringIncubator.enums.CartStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,9 @@ public interface ICartService {
 
     CartItemDTO editCartItem (EditCartItemDTO editItem);
 
-    CartDTO getCartByID(Integer cartID);
+    CartDTO getCartByUsersID(Integer cartID);
 
     CartItemDTO getCartItemByID(Integer cartItemID);
+
+    CartStatus createCartForUser(Integer customerID, CreateCartDTO cartDTO);
 }

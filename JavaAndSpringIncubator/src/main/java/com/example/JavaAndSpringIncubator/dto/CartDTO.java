@@ -3,13 +3,14 @@ package com.example.JavaAndSpringIncubator.dto;
 import com.example.JavaAndSpringIncubator.entities.CartItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartDTO {
 
     private Integer cartID;
-    private Integer customerID;
+    private Integer userID;
     List<CartItemDTO> cartItems;
 
     public CartDTO() {
@@ -23,12 +24,12 @@ public class CartDTO {
         this.cartID = cartID;
     }
 
-    public Integer getCustomerID() {
-        return customerID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public List<CartItemDTO> getCartItems() {
@@ -42,7 +43,7 @@ public class CartDTO {
     public static CartDTO fromEntity(com.example.JavaAndSpringIncubator.entities.Cart cartEntity) {
         CartDTO cartDTO = new CartDTO();
         cartDTO.cartID = cartEntity.getCartID();
-        cartDTO.customerID = cartEntity.getCustomerID();
+        cartDTO.userID = cartEntity.getUserID();
         List<CartItemDTO> cartItemDTOS = new ArrayList<>();
         for (CartItem cartItem : cartEntity.getCartItems())
         {
@@ -56,7 +57,7 @@ public class CartDTO {
     public com.example.JavaAndSpringIncubator.entities.Cart toEntity() {
        com.example.JavaAndSpringIncubator.entities.Cart cart = new com.example.JavaAndSpringIncubator.entities.Cart();
         cart.setCartID(getCartID());
-        cart.setCustomerID(getCustomerID());
+        cart.setUserID(getUserID());
         List<CartItem> cartItems = new ArrayList<>();
         for (CartItemDTO cartItem : getCartItems())
         {

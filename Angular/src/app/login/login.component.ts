@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/models/user';
 import { LoginService } from '../services/login/login.service';
 import { Router } from '@angular/router';
+import { UserDataService } from '../services/user/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage.nativeElement.textContent = 'The username or password provided is incorrect. Please try again.';
   }
 
-  constructor(private loginService: LoginService, private router: Router){
+  constructor(private loginService: LoginService, private userDataService: UserDataService, private router: Router){
     //this.dataSource = new MatTableDataSource<Books>();
     this.user = [];
     this.errorMessage = new ElementRef(document.getElementById('errorMessage'));
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const currentUsersRole = localStorage.getItem('currentUsersRole');
+    const userID = localStorage.getItem('userID');
   
   if (isLoggedIn === 'true') {
     this.status = true;
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
 }
-async login(username?: String, password?: String): Promise<void> {
+async login(username?: string, password?: string): Promise<void> {
 
   this.body = {
     username: this.username,
@@ -77,6 +79,10 @@ async login(username?: String, password?: String): Promise<void> {
         console.log("No role found for username:", this.body.username);
       }
 
+      const userID: User | undefined = await this.userDataService.getIDByUsername(this.body.username).toPromise();
+      localStorage.setItem('userID', userID?.toString() || ''); 
+
+
       this.router.navigate(['/browse']);
     } else {
       this.showError();
@@ -90,11 +96,10 @@ async login(username?: String, password?: String): Promise<void> {
   console.log("status: " + this.userRole);
 }
 
-
-
   logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userID');
     this.status = false;
     this.router.navigate(['/login']);
   }

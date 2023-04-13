@@ -1,6 +1,6 @@
 export interface EditCartItem {
 
-    customerID: number;
+    userID: number;
     quantity?: number;
     cartItemID?: number;
 

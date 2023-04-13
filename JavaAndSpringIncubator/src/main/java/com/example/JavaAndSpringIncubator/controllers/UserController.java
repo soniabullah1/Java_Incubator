@@ -1,9 +1,16 @@
 package com.example.JavaAndSpringIncubator.controllers;
 
 import com.example.JavaAndSpringIncubator.RoleResponse;
+import com.example.JavaAndSpringIncubator.dto.CartDTO;
+import com.example.JavaAndSpringIncubator.dto.CreateCartDTO;
 import com.example.JavaAndSpringIncubator.dto.UserDTO;
+import com.example.JavaAndSpringIncubator.entities.User;
+import com.example.JavaAndSpringIncubator.enums.CartStatus;
 import com.example.JavaAndSpringIncubator.enums.UserStatus;
+import com.example.JavaAndSpringIncubator.repositories.CartRepository;
 import com.example.JavaAndSpringIncubator.repositories.UserRepository;
+import com.example.JavaAndSpringIncubator.services.CartService;
+import com.example.JavaAndSpringIncubator.services.ICartService;
 import com.example.JavaAndSpringIncubator.services.IUserService;
 import com.example.JavaAndSpringIncubator.services.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -22,15 +29,20 @@ import java.util.List;
 public class UserController {
 
     private final IUserService iUserService;
+    private final ICartService iCartService;
     Logger logger = LogManager.getLogger(UserController.class.getName());
 
     private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
 
     @Autowired
-    public UserController(UserService iUserService, UserRepository userRepository) {
+    public UserController(UserService iUserService, UserRepository userRepository, CartService iCartService, CartRepository cartRepository) {
         this.iUserService = iUserService;
         this.userRepository = userRepository;
+
+        this.iCartService = iCartService;
+        this.cartRepository = cartRepository;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -50,6 +62,14 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("findID/{username}")
+    public ResponseEntity<Integer> getIDByUsername(@PathVariable String username)
+    {
+        Integer userID = iUserService.getIDByUsername(username);
+        return ResponseEntity.ok(userID);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/role/{username}")
     public ResponseEntity<RoleResponse> getRoleByUsername(@PathVariable String username)
     {
@@ -62,6 +82,21 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserStatus> registerUser(@RequestBody UserDTO user) {
         UserStatus userStatus = iUserService.registerUser(user);
+
+        CreateCartDTO cartDTO = new CreateCartDTO();
+        String username = user.getUsername();
+        Integer customerID = null;
+
+        List<User> users = userRepository.findByUsername(username);
+
+        for (User currentUser : users) {
+            customerID = currentUser.getUserID();
+        }
+        
+        cartDTO.setUserID(userRepository.findByUserID(customerID).getUserID());
+
+        iCartService.createCartForUser(customerID, cartDTO);
+
         return new ResponseEntity<>(userStatus, HttpStatus.ACCEPTED);
     }
 

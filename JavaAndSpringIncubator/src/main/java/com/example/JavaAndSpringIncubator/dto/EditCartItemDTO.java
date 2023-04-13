@@ -2,7 +2,7 @@ package com.example.JavaAndSpringIncubator.dto;
 
 public class EditCartItemDTO {
 
-    private Integer customerID;
+    private Integer userID;
     private Integer quantity;
     private Integer cartItemID;
 
@@ -10,12 +10,12 @@ public class EditCartItemDTO {
     }
 
 
-    public Integer getCustomerID() {
-        return customerID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public Integer getQuantity() {

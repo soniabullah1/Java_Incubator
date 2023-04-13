@@ -1,5 +1,5 @@
 export interface AddToCart {
     bookID: number;
-    customerID?: number;
+    userID?: number;
     quantity?: number;
   }

@@ -33,7 +33,10 @@ export class ViewCartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.cartDataService.getCart().subscribe((data: Cart[]) => {
+    const userIDFromStorage = localStorage.getItem('userID');
+    const usersID = parseInt(userIDFromStorage ?? '');
+
+    this.cartDataService.getCartById(usersID).subscribe((data: Cart[]) => {
       this.carts = data;
       console.log(this.carts);
     });
@@ -63,11 +66,14 @@ removeItem(id: any): void {
 
 increaseQuantity(id: any, quantity: any, availableBooks: any): void {
 
+  const userIDFromStorage = localStorage.getItem('userID');
+  const usersID = parseInt(userIDFromStorage ?? '');
+
   console.log("available: ", availableBooks)
   if(quantity + 1 > availableBooks){
   this.body = {
     cartItemID: id,
-    customerID: 1,
+    userID: usersID,
     quantity: quantity
   };
 }
@@ -75,7 +81,7 @@ increaseQuantity(id: any, quantity: any, availableBooks: any): void {
 else{
   this.body = {
     cartItemID: id,
-    customerID: 1,
+    userID: usersID,
     quantity: quantity + 1
   };
 }
@@ -89,10 +95,13 @@ else{
 
 decreaseQuantity(id: any, quantity: any): void {
 
+  const userIDFromStorage = localStorage.getItem('userID');
+  const usersID = parseInt(userIDFromStorage ?? '');
+
   if (quantity - 1 <= 0){
   this.body = {
     cartItemID: id,
-    customerID: 1,
+    userID: usersID,
     quantity: 1
   };
 }
@@ -100,7 +109,7 @@ decreaseQuantity(id: any, quantity: any): void {
   else{
     this.body = {
       cartItemID: id,
-      customerID: 1,
+      userID: usersID,
       quantity: quantity - 1
     };
   }
