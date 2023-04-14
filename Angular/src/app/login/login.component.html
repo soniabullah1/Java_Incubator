@@ -63,7 +63,7 @@
   
     <div style="display: flex; flex-direction: column; align-items: center;">
         <h1 style="padding-top: 350px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">You are already logged in.</h1>
-        
+        <p>{{username}}</p>
         <div *ngIf="userRole === 'Admin'">
         <div style="display: flex; justify-content: center; padding-bottom: 10px;">
           <button mat-flat-button color="primary" (click)="manageStock()">Manage Stock</button>

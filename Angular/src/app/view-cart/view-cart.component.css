@@ -30,6 +30,7 @@
     align-items: center; */
     transition: all 0.2s ease-in-out;
     line-height: 24px;
+    flex-direction: column;
   }
 
 
@@ -123,5 +124,25 @@
     right: 0;
     margin-right: 20px;
   }
+  
+  .book-container {
+    display: flex;
+  }
+
+  .quantity-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .quantity-container p {
+    margin-right: 10px;
+  }
+  
+  .quantity-container .stock-info {
+    color: red;
+    font-size: x-small;
+  }
+  
   
   

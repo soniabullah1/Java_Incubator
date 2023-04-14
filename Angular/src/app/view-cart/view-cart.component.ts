@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class ViewCartComponent implements OnInit {
 
-  carts: Cart[] = [];
+  carts: Cart;
   cartItems: CartItems[] = [];
   cartItemsTest: CartItems[] = [];
   editItems: EditCartItem[] = [];
@@ -26,7 +26,10 @@ export class ViewCartComponent implements OnInit {
 
   constructor(private cartDataService: CartDataService, private location: Location){
     //this.dataSource = new MatTableDataSource<Books>();
-    this.carts = [];
+    this.carts = {
+      cartID: 0,
+      cartItems: []
+    };
     this.cartItems = [];
     this.editItems = [];
   }
@@ -36,9 +39,9 @@ export class ViewCartComponent implements OnInit {
     const userIDFromStorage = localStorage.getItem('userID');
     const usersID = parseInt(userIDFromStorage ?? '');
 
-    this.cartDataService.getCartById(usersID).subscribe((data: Cart[]) => {
+    this.cartDataService.getCartById(usersID).subscribe((data: Cart) => {
       this.carts = data;
-      console.log(this.carts);
+      console.log("whyyyyyyyyy won'tttttt thissssssss workkkkkkkkk??????", this.carts);
     });
 }
 

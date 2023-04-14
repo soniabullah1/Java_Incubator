@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const currentUsersRole = localStorage.getItem('currentUsersRole');
     const userID = localStorage.getItem('userID');
-  
+    const userName = localStorage.getItem('userName');
+
   if (isLoggedIn === 'true') {
     this.status = true;
   }
@@ -62,6 +63,7 @@ async login(username?: string, password?: string): Promise<void> {
       console.log("testing:", this.user);
       this.status = true;
       localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userName', this.body.username);
 
       const currentRole: User | undefined = await this.loginService.getRoleByUsername(this.body.username).toPromise();
       if (currentRole && currentRole.role) {
@@ -93,13 +95,14 @@ async login(username?: string, password?: string): Promise<void> {
     this.showError();
   }
 
-  console.log("status: " + this.userRole);
+  console.log("status: " + username);
 }
 
   logout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userID');
+    localStorage.removeItem('userName')
     this.status = false;
     this.router.navigate(['/login']);
   }
