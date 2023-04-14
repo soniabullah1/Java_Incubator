@@ -22,6 +22,7 @@ export class ViewCartComponent implements OnInit {
   price?: any;
   total = 0;
   totalPrice = 0;
+  cartTotal = 0;
   //dataSource: MatTableDataSource<Books>;
 
   constructor(private cartDataService: CartDataService, private location: Location){
@@ -46,17 +47,22 @@ export class ViewCartComponent implements OnInit {
 }
 
 
-calculateTotalPrice(price: any, quantity: any): number {
+calculateTotalPrice(quantity: any, price: any): number {
+  console.log("cart:", this.totalPrice)
   this.total = quantity * price;
-  console.log("hiii")
-  this.totalPrice += this.total
+  console.log("quantity:", quantity)
+  console.log("price:", price)
+  console.log("total:", this.total)
+  this.totalPrice = this.total
+  console.log("cart:", this.totalPrice)
+  this.updateCartTotal(this.totalPrice);
   return this.total;
 }
 
-updateTotalPrice(quantity: any, price: any): number {
-  const totalPriceForItem = quantity * price;
-  this.totalPrice += totalPriceForItem;
-  return this.totalPrice;
+updateCartTotal(total: any): void {
+  this.cartTotal = this.cartTotal + this.total;
+  this.totalPrice = 0;
+  console.log("update:", this.cartTotal)
 }
 
 removeItem(id: any): void {

@@ -68,7 +68,7 @@
   <h1 style="padding-top: 150px; font-family:'Times New Roman', Times, serif; font-size:xx-large;">My Cart</h1>
 
 
-  <div class="card-container">
+  <div class="card-container" *ngIf="carts.cartItems.length > 0">
     <div class="card" style="margin-left: 20px;">
 
   <div class="card" style="width: 650px; height: 350px;" *ngFor="let cartItem of carts.cartItems">
@@ -103,6 +103,7 @@
             </button>
           
             <p class="stock-info">Number of items available: {{ cartItem.numberOfBooksInStock }} at R{{ cartItem.price }} each</p>
+
           </div>
           
 
@@ -110,19 +111,26 @@
 
     <p class="total"><strong>Total Price: R{{calculateTotalPrice(cartItem.quantity, cartItem.price)}}</strong></p>
   </div>
+
   </div>
 
   
-<div class="card" style="width: 700px; height: 100px; margin-left: 20px;">
+<div class="card" style="width: 700px; height: 100px; margin-left: 20px;"  *ngIf="carts.cartItems.length > 0">
     <!-- <div style="margin-left: 20px;" *ngIf="cartItems && cartItems.length > 0"> -->
       <h3><strong>Cart Total:</strong></h3>
-      <h5><strong>Cart Total: R{{(totalPrice).toFixed(2)}}</strong></h5>
+      <h5><strong>Cart Total: R{{(cartTotal/3).toFixed(2)}}</strong></h5>
       <div class="total" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
         <button mat-flat-button color="primary">Checkout</button>
       </div>
     <!-- </div> -->
   </div>
 </div>
+
+<div class="card" style="height: 50px;" *ngIf="carts.cartItems.length === 0">
+    <p>There are no items in your cart.</p>
+  </div>
+
+
 </div>
 
 
