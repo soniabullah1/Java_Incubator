@@ -41,7 +41,7 @@ export class ViewCartComponent implements OnInit {
 
     this.cartDataService.getCartById(usersID).subscribe((data: Cart) => {
       this.carts = data;
-      console.log("whyyyyyyyyy won'tttttt thissssssss workkkkkkkkk??????", this.carts);
+      console.log(this.carts);
     });
 }
 

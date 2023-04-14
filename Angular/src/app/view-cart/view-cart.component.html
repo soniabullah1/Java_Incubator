@@ -111,9 +111,24 @@
     <p class="total"><strong>Total Price: R{{calculateTotalPrice(cartItem.quantity, cartItem.price)}}</strong></p>
   </div>
   </div>
-</div>
-</div>
+
   
+<div class="card" style="width: 700px; height: 100px; margin-left: 20px;">
+    <!-- <div style="margin-left: 20px;" *ngIf="cartItems && cartItems.length > 0"> -->
+      <h3><strong>Cart Total:</strong></h3>
+      <h5><strong>Cart Total: R{{(totalPrice).toFixed(2)}}</strong></h5>
+      <div class="total" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        <button mat-flat-button color="primary">Checkout</button>
+      </div>
+    <!-- </div> -->
+  </div>
+</div>
+</div>
+
+
+
+
+
   
   <router-outlet></router-outlet>
   
